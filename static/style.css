@@ -1,0 +1,333 @@
+:root {
+    --body-background-color: #f5f6f8;
+    --main-background-color: #ffffff;
+    --main-color: #2a303b;
+    --max-body-width: 700px;
+    --border-color: #cccccc;
+    --secondary-color: #fff6d3;
+    --loader-bullet-size: 6px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--body-background-color);
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.dark {
+    --body-background-color: #2a303b;
+    --main-background-color: #3a3f4b;
+    --main-color: #ffffff;
+    --border-color: #ffffff;
+    --secondary-color: #3a3f4b;
+}
+
+.main-container {
+    max-width: var(--max-body-width);
+    min-height: 100vh;
+    background-color: var(--main-background-color);
+    color: var(--main-color);
+    padding: 50px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+}
+
+.header-title {
+    margin-top: 0;
+}
+
+.messages-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.message {
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+.message-human {
+    background-color: var(--secondary-color);
+}
+
+.prompt-container {
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--max-body-width);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--main-background-color);
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.prompt-label {
+    font-weight: bold;
+}
+
+.prompt-input {
+    flex-grow: 1;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.button {
+    border: 1px solid var(--border-color);
+    padding: 5px;
+    border-radius: 5px;
+    background-color: var(--main-background-color);
+    color: var(--main-color);
+}
+
+.button:hover,
+.button:active {
+    background-color: var(--body-background-color);
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Loader code taken from https://loading.io/css/ */
+.loader {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: var(--loader-bullet-size);
+}
+
+.loader div {
+    position: absolute;
+    top: 0;
+    width: var(--loader-bullet-size);
+    height: var(--loader-bullet-size);
+    border-radius: 50%;
+    background-color: var(--main-color);
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loader div:nth-child(1) {
+    left: calc(var(--loader-bullet-size) * 0.5);
+    animation: loader1 0.6s infinite;
+}
+
+.loader div:nth-child(2) {
+    left: calc(var(--loader-bullet-size) * 0.5);
+    animation: loader2 0.6s infinite;
+}
+
+.loader div:nth-child(3) {
+    left: calc(var(--loader-bullet-size) * 2.5);
+    animation: loader2 0.6s infinite;
+}
+
+.loader div:nth-child(4) {
+    left: calc(var(--loader-bullet-size) * 4);
+    animation: loader3 0.6s infinite;
+}
+
+@keyframes loader1 {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes loader3 {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes loader2 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(calc(var(--loader-bullet-size) * 2), 0);
+    }
+}
+
+
+/* Déposer un PDF*/
+
+.upload-button {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-button i {
+    font-size: 20px;
+    /* Adjustez la taille comme vous le souhaitez */
+}
+
+/* Styles pour l'info-bulle personnalisée */
+.upload-button {
+    position: relative;
+    /* permet de positionner l'info-bulle par rapport à ce bouton */
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    border-radius: 6px;
+
+    /* Positionnement de l'info-bulle */
+    position: absolute;
+    z-index: 1;
+
+    /* Nouveau positionnement pour afficher la bulle au-dessus */
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 5px;
+    /* espace entre le bouton et l'info-bulle */
+    opacity: 0;
+    transition: opacity 0.3s;
+
+    /* Flèche pointant vers le bas */
+    &:after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+}
+
+.upload-button:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+#qcm-question {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#qcm-choices li {
+    margin-bottom: 10px;
+}
+
+#qcm-choices label {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#qcm-choices label:hover {
+    background-color: #f5f5f5;
+}
+
+#qcm-choices input[type="radio"] {
+    margin-right: 10px;
+}
+
+#qcm-submit,
+#new-qcm-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#qcm-submit:hover,
+#new-qcm-button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Style général pour le feedback */
+#qcm-feedback {
+    margin-top: 20px;
+    font-size: 1.2em;
+    border: 1px solid;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    /* Centrer le texte */
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Style pour une bonne réponse */
+.correct-feedback {
+    background-color: #DFF2BF;
+    border-color: #4CAF50;
+    color: #2F922F;
+}
+
+/* Style pour une mauvaise réponse */
+.incorrect-feedback {
+    background-color: #FFD1D1;
+    border-color: #FF5B5B;
+    color: #D32F2F;
+}
+
+/* Style pour un prompt ou rappel */
+.prompt-feedback {
+    background-color: #FFE5AD;
+    border-color: #FFB84D;
+    color: #B87424;
+}
+
+
+
+#end-qcm-button {
+    margin: 30px auto;
+    text-align: center;
+    width: 200px;
+    padding: 10px 20px;
+    font-size: 1.5em;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    color: var(--main-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+#end-qcm-button:hover {
+    background-color: var(--body-background-color);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(50, 50, 93, 0.25), 0 3px 6px rgba(0, 0, 0, 0.16);
+}
