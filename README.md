@@ -1,20 +1,52 @@
-# Hackathon Ponts ENPC
 
-## Install
+### User Story 1: Générateur de QCM
+**En tant que** élève,
+**Je veux** pouvoir générer un QCM basé sur le sujet que je souhaite étudier,
+**Afin de** tester mes connaissances de manière interactive.
 
-- when opening VSCode, install the suggested extensions (Python, Black Formatter and Pylance)
-- create your python environment `python3 -m venv .venv`
-- copy the `.env.example` file to a `.env` file
-- replace the `OPENAI_API_KEY` and `OPENAI_ORGANIZATION` env variables with the real values
-- activate your environment with `  `
-- download necessary data with `python -m nltk.downloader all`
-- run the server with `flask --app main run --debug`
+#### Critères d'acceptation:
+1. L'utilisateur peut sélectionner un sujet spécifique pour le QCM.
+2. Le système génère automatiquement un ensemble de questions à choix multiples basé sur le sujet sélectionné.
+3. Chaque QCM produit doit être unique pour éviter la répétition des questions.
 
-The server should answer on http://localhost:5000
+### User Story 2: Adaptation de la Difficulté
+**En tant que** élève,
+**Je veux** que la difficulté des questions s'adapte à mon niveau,
+**Afin de** me concentrer sur l'amélioration de mes points faibles.
 
-You can deactivate the environment with `deactivate`.
+#### Critères d'acceptation:
+1. Le système enregistre les scores des utilisateurs sur chaque QCM.
+2. Le système analyse les points faibles de l'utilisateur en fonction de ses performances précédentes.
+3. Les questions suivantes sont adaptées pour se concentrer davantage sur les domaines où l'utilisateur a montré des lacunes.
 
-## Adding librairies
+### User Story 3: Système de Gamification
+**En tant que** élève,
+**Je veux** être récompensé pour mes progrès et mes réussites,
+**Afin de** rester motivé et engagé dans mon apprentissage.
 
-if you need to use a new librairies, you can do it with pip
-`pip install [library name]` or `pip3 install [library name]`
+#### Critères d'acceptation:
+1. Les utilisateurs gagnent des points en passant des niveaux ou en accomplissant certaines tâches.
+2. Des badges sont attribués pour divers accomplissements.
+3. Un système de classement permet de comparer les progrès à ceux des autres utilisateurs.
+
+### User Story 4: Générateur de Flashcards
+**En tant que** élève,
+**Je veux** avoir accès à des flashcards générées automatiquement,
+**Afin de** m'aider à mémoriser les informations importantes.
+
+#### Critères d'acceptation:
+1. Le système génère des flashcards basées sur les sujets étudiés.
+2. Les flashcards doivent présenter des informations clés de manière concise.
+3. Les utilisateurs peuvent parcourir les flashcards à leur propre rythme.
+
+### User Story 5: Feedback Utilisateur sur le Contenu
+**En tant que** élève,
+**Je veux** pouvoir liker ou disliker les QCM et flashcards,
+**Afin de** contribuer à l'amélioration de la qualité du contenu.
+
+#### Critères d'acceptation:
+1. Les utilisateurs peuvent donner un feedback positif ou négatif sur chaque QCM ou flashcard.
+2. Le système utilise les feedbacks pour améliorer ou retirer le contenu de la plateforme.
+3. Les contenus les mieux notés sont plus fréquemment proposés aux futurs utilisateurs.
+
+Pour chaque user story, l'équipe de développement doit collaborer avec les utilisateurs finaux pour affiner les détails et s'assurer que le produit final répondra à leurs besoins et attentes.
