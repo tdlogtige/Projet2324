@@ -41,11 +41,12 @@
 
 ### User Story 5: Feedback Utilisateur sur le Contenu
 **En tant que** élève,
-**Je veux** pouvoir liker ou disliker les QCM et flashcards,
-**Afin de** contribuer à l'amélioration de la qualité du contenu.
+**Je veux** pouvoir liker ou disliker les QCM et flashcards, et noter la difficulté des questions.
+**Afin de** contribuer à l'amélioration de la qualité du contenu, et à la classification de ce dernier.
 
 #### Critères d'acceptation:
 1. Les utilisateurs peuvent donner un feedback positif ou négatif sur chaque QCM ou flashcard.
 2. Le système utilise les feedbacks pour améliorer ou retirer le contenu de la plateforme.
 3. Les contenus les mieux notés sont plus fréquemment proposés aux futurs utilisateurs.
+4. Les questions sont de difficultés progressives pour les utilisateurs, en fonction des notes de difficulté données par les utilisateurs précédents.
 
