@@ -2,8 +2,7 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Copin de révision</title>
+    <title>Mon A.I.de mémoire</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
@@ -47,24 +46,50 @@
         </form>
 
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const levelSelect = document.getElementById('level');
-            const subjectButtons = document.querySelectorAll('.subject-button');
+        <form id="prompt-form" class="prompt-container">
+            <label for="prompt" class="prompt-label">Message</label>
 
-            subjectButtons.forEach(button => {
-                button.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const level = levelSelect.value;
-                    const subject = this.textContent.trim();
-                    window.location.href = `/page_base.html?level=${level}&subject=${subject}`;
-                });
-            });
+            <input type="text" id="prompt" name="prompt" class="prompt-input" autocomplete="off" />
+
+
+
+
+
+            <button type="submit" class="button" id="submit-button">Envoyer</button>
+
+            <button type="button" class="button" id="question-button">
+                Pose-moi une question !
+            </button>
+
+            <button type="button" class="button" id="qcm-test-button">QCM</button>
+
+            <input type="file" id="pdf-input" accept=".pdf" style="display:none" />
+
+            <label for="pdf-input" class="button upload-button"
+                data-tooltip="Déposer un cours au format pdf que vous souhaitez apprendre !">
+                <i class="fas fa-upload"></i>
+                <span class="tooltip-text">Déposer un cours au format pdf que vous souhaitez apprendre !</span>
+            </label>
+            <button type="button" class="button" id="darkmode-button">
+                🌙
+            </button>
+        </form>
+        <script src="{{ url_for('static', filename='prompt.js') }}"></script>
+    </main>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            processEscapes: true,
+            processEnvironments: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            TeX: {
+              equationNumbers: { autoNumber: "AMS" },
+              extensions: ["AMSmath.js", "AMSsymbols.js"],
+            },
+          },
         });
-    </script>
-
+      </script>
 </body>
 
 </html>
-
-

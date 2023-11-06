@@ -115,7 +115,7 @@ for l in lignes:
 
 def gpt3_completion(entree_utilisateur, save=True):
     global contexte
-    contexte += [{"role": "user", "content": entree_utilisateur+"écris en code latex"}]
+    contexte += [{"role": "user", "content": entree_utilisateur+"écris en code latex avec des $"}]
     res = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=contexte.copy(),

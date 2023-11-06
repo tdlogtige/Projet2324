@@ -30,7 +30,7 @@ const appendHumanMessage = (message) => {
 const appendSimpleAIMessage = (message) => {
     const humanMessageElement = document.createElement("div");
     humanMessageElement.classList.add("message");
-    humanMessageElement.innerHTML = message;
+    humanMessageElement.innerHTML =  message ;
     messagesContainer.appendChild(humanMessageElement);
 };
 
@@ -45,15 +45,9 @@ const appendAIMessage = async (messagePromise) => {
     // Await the answer from the server
     const messageToAppend = await messagePromise();
 
-    // Replace the loader with the answer and render it with MathJax
+    // Replace the loader with the answer
     loaderElement.classList.remove("loader");
-    loaderElement.innerHTML = "<span class='tex'>" + messageToAppend + "</span>";
-    messagesContainer.appendChild(loaderElement);
-
-    // Render MathJax
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, loaderElement]);
-
-  
+    loaderElement.innerHTML = '<span class="tex">' + messageToAppend + '</span>'
 };
 
 const handlePrompt = async (event) => {
