@@ -30,7 +30,7 @@ const appendHumanMessage = (message) => {
 const appendSimpleAIMessage = (message) => {
     const humanMessageElement = document.createElement("div");
     humanMessageElement.classList.add("message");
-    humanMessageElement.innerHTML =  message ;
+    humanMessageElement.innerHTML = message;
     messagesContainer.appendChild(humanMessageElement);
 };
 
@@ -47,7 +47,7 @@ const appendAIMessage = async (messagePromise) => {
 
     // Replace the loader with the answer
     loaderElement.classList.remove("loader");
-    loaderElement.innerHTML = '<span class="tex">' + messageToAppend + '</span>'
+    loaderElement.innerHTML = '<span class="tex">'+messageToAppend +'</span>'
 };
 
 const handlePrompt = async (event) => {
