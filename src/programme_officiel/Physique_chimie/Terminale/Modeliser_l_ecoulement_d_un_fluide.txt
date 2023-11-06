@@ -1,0 +1,3 @@
+La poussée d’Archimède
+L’écoulement d’un fluide en régime permanent
+Le débit volumique d’un fluide incompressible : la relation de Bernouilli et l’effet Venturi

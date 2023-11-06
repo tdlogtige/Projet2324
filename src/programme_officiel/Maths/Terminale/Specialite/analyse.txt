@@ -1,0 +1,11 @@
+- Les limites de suites (théorème des gendarmes, opérations sur les limites)
+- Les limites de fonctions (asymptotes, opérations sur les limites)
+- La composée de deux fonctions et sa dérivée
+- La dérivée seconde d’une fonction
+- La convexité et le point d’inflexion
+- La continuité des fonctions (théorème des valeurs intermédiaires)
+- La fonction logarithme et ses propriétés
+- Les fonctions trigonométriques et leurs propriétés
+- Les équations différentielles
+- Le calcul intégral (linéarité, positivité, relation de Chasles, intégration par parties)
+

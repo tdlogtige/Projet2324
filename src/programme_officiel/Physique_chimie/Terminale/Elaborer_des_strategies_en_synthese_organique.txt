@@ -1,0 +1,3 @@
+Les propriétés d’une synthèse : formule topologique, familles fonctionnelles, squelettes carbonés insaturés, isométrie et polymères
+L’optimisation d’une étape de synthèse
+La stratégie de synthèse multi-étapes : modification de chaîne carbonée, polymérisation
