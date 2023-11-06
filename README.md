@@ -49,4 +49,3 @@
 2. Le système utilise les feedbacks pour améliorer ou retirer le contenu de la plateforme.
 3. Les contenus les mieux notés sont plus fréquemment proposés aux futurs utilisateurs.
 
-Pour chaque user story, l'équipe de développement doit collaborer avec les utilisateurs finaux pour affiner les détails et s'assurer que le produit final répondra à leurs besoins et attentes.
