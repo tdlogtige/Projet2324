@@ -1,0 +1,5 @@
+- Le dénombrement (produit cartésien, liste d’éléments, combinaisons et permutations)
+- Le calcul vectoriel dans l’espace (translation, combinaison linéaire de vecteurs, indépendance linéaire, directions de droites et de plans)
+- Le produit scalaire (bilinéarité, symétrie, orthogonalité, base orthonormée, norme, formules de polarisation, vecteur normal à un plan, projeté orthogonal)
+- La représentation paramétrique d’une droite
+- L’équation cartésienne d’un plan

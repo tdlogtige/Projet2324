@@ -1,0 +1,3 @@
+L'intensité d'un courant électrique
+La relation entre charge et tension et la capacité d'un condensateur
+Le modèle du circuit RC série

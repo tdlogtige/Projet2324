@@ -1,0 +1,3 @@
+- Le passage du langage naturel au langage Python et inversement
+- L’écriture de programmes informatiques simples
+- La notion de liste

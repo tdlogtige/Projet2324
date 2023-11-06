@@ -1,0 +1,3 @@
+La modélisation macroscopique : les facteurs cinétiques, la catalyse, le temps de demi-réaction
+La modélisation microscopique : le mécanisme réactionnel, l’ajout d’un catalyseur
+La décroissance radioactive : la stabilité/instabilité des noyaux, l’évolution temporelle d’une population de noyaux radioactifs, la radioactivité naturelle

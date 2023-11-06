@@ -1,0 +1,4 @@
+- Le schéma de Bernoulli
+- La loi binomiale
+- La somme de variables aléatoires
+- La loi des grands nombres (inégalité de Bienaymé-Tchebychev et inégalité de concentration)

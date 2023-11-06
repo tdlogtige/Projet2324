@@ -1,0 +1,6 @@
+La transformation acide-base par des transferts d’ion hydrogène H+
+Le pH d’une solution
+L’absorbance et la loi de Beer-Lambert
+La conductance/conductivité et la loi de Kohlrausch
+La spectroscopie infrarouge et UV-visible
+Le titrage avec suivi pH-métrique et suivi conductimétrique
