@@ -92,6 +92,42 @@ preprompt = "Tu es un professeur particulier qui pose des questions sur le" + \
 
 contexte = [{"role": "system", "content": preprompt}]
 
+with open("contexte.txt", "r", encoding="utf-8") as sauvegarde:
+    lignes = sauvegarde.readlines()
+
+content = ""
+role = ""
+for l in lignes:
+    if l[0] == "§":
+        if role != "":
+            contexte += [{"role": role, "content": content}]
+            print(role, content)
+        role = "user" if l[1] == 'u' else "assistant"
+        content = l[3:]
+    else:
+        content += l
+        print(l)
+
+
+
+################################################################
+
+
+def gpt3_completion(entree_utilisateur, save=True):
+    global contexte
+    contexte += [{"role": "user", "content": entree_utilisateur+"écris en code latex"}]
+    res = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=contexte.copy(),
+    )["choices"][0]["message"]["content"]
+
+    contexte += [{"role": "assistant", "content": res}]
+
+    with open("contexte.txt", "a", encoding="utf-8") as sauvegarde:
+        sauvegarde.write("§u:"+entree_utilisateur + "\n§a:" + res + "\n")
+
+    return res
+
 
 def ask_question_to_pdf(question, save=True):
     # Recharger le document PDF et le contexte chaque fois qu'une question est posée

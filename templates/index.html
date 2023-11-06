@@ -5,100 +5,46 @@
     <meta charset="UTF-8">
     <title>Copin de révision</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="stylesheet" href="{ url_for('static', filename='style.css') }">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-        }
-        .header {
-            background-color: #af2a99;
-            color: #fff;
-            padding: 10px;
-            text-align: right;
-        }
-        .header-title {
-            font-size: 24px;
-        }
-        .main-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .greeting {
-            text-align: right;
-            font-size: 18px;
-        }
-        .level-dropdown {
-            text-align: right;
-            margin-bottom: 20px;
-        }
-        .level-dropdown select {
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .subjects {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-        .subject-button {
-            background-color: #ccb800;
-            color: #fff;
-            padding: 20px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: calc(33.33% - 20px);
-            text-align: center;
-        }
-        .subject-button:hover {
-            background-color: #717900;
-        }
-    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <script type="text/javascript" async
+		src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+		</script>
 </head>
 
 <body>
-    <div class="main-container">
-        <div class="header">
-            <h1 class="header-title">Aide scolaire</h1>
-            <div class="greeting">Et si tu avais 20/20 sur ton prochain devoir? </div>
-        </div>
-        <div class="level-dropdown">
-            <label for="level">Niveau : </label>
-            <select id="level">
-                <option value="CP">CP</option>
-                <option value="CE1">CE1</option>
-                <option value="CE2">CE2</option>
-                <option value="CM1">CM1</option>
-                <option value="CM2">CM2</option>
-                <option value="6ème">6ème</option>
-                <option value="5ème">5ème</option>
-                <option value="4ème">4ème</option>
-                <option value="3ème">3ème</option>
-                <option value="Seconde">Seconde</option>
-                <option value="Première">Première</option>
-                <option value="Terminale">Terminale</option>
-            </select>
-        </div>
-        <div class="subjects">
-            <a href="page_base.html" class="subject-button">Mathématiques</a>
-            <a href="page_base.html" class="subject-button">Physique</a>
-            <a href="page_base.html" class="subject-button">Chimie</a>
-            <a href="page_base.html" class="subject-button">Français</a>
-            <a href="page_base.html" class="subject-button">Anglais</a>
-            <a href="page_base.html" class="subject-button">Histoire</a>
-            <a href="page_base.html" class="subject-button">Géographie</a>
-            <a href="page_base.html" class="subject-button">SVT</a>
-        </div>
-    </div>
+    <main class="main-container">
+        <header class="header">
+            <h1 class="header-title">Mon A.I.de mémoire</h1>
+        </header>
+
+        <section id="messages-container" class="messages-container">
+            <div class="message message-ai">
+                
+				<span class="tex">Je suis ton AIssistant de cours personnel ! Pose-moi une question sur
+                    le cours et je te répondrai. Voici l'équation de Schrödinger : \[H\psi = E\psi\]</span>
+            </div>
+        </section>
+
+        <section id="qcm-container" class="hidden">
+            <div id="qcm-question"></div>
+            <ul id="qcm-choices">
+                <!-- Les choix seront injectés ici par le JavaScript -->
+            </ul>
+            <button id="qcm-submit">Valider</button>
+            <div id="qcm-feedback"></div>
+            <button id="new-qcm-button" class="hidden">Question Suivante</button>
+            <button id="end-qcm-button" class="hidden">Résultats</button>
+
+        </section>
+
+        <form id="qcm-form" class="prompt-container">
+
+            <button type="button" class="button" id="return-chat-button">Retour au chat</button>
+
+            <button type="button" class="button" id="new-qcm-test-button">Nouveau QCM</button>
+
+        </form>
 
 
     <script>
