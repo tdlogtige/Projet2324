@@ -89,7 +89,7 @@
             </select>
         </div>
         <div class="subjects">
-            <a href="page_base" class="subject-button">Mathématiques</a>
+            <a href="page_base.html" class="subject-button">Mathématiques</a>
             <a href="page_base.html" class="subject-button">Physique</a>
             <a href="page_base.html" class="subject-button">Chimie</a>
             <a href="page_base.html" class="subject-button">Français</a>
@@ -100,41 +100,25 @@
         </div>
     </div>
 
-    <!--ouvrir une autre page -->
+
     <script>
-        document.getElementById("mathematiques").addEventListener("click", function() {
-            window.location.href = 'page_base.html';
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const levelSelect = document.getElementById('level');
+            const subjectButtons = document.querySelectorAll('.subject-button');
 
-        document.getElementById("physique").addEventListener("click", function() {
-            window.location.href = 'page_base.html';
-        });
-
-        document.getElementById("chimie").addEventListener("click", function() {
-            window.location.href = 'page_base.html';
-        });
-
-        document.getElementById("francais").addEventListener("click", function() {
-            window.location.href = 'page_base.html';
-        });
-
-
-        document.getElementById("anglais").addEventListener("click", function() {
-            window.location.href = 'page_base.html';
-        });
-
-        document.getElementById("histoire").addEventListener("click", function() {
-            window.location.href = 'page_base.html';
-        });
-
-        document.getElementById("geographie").addEventListener("click", function() {
-            window.location.href = 'page_base.html';
-        });
-
-        document.getElementById("svt").addEventListener("click", function() {
-            window.location.href = 'page_base.html';
+            subjectButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const level = levelSelect.value;
+                    const subject = this.textContent.trim();
+                    window.location.href = `/page_base.html?level=${level}&subject=${subject}`;
+                });
+            });
         });
     </script>
+
 </body>
 
 </html>
+
+

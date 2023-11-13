@@ -1,1 +1,3 @@
 
+§u:Pose moi une question sur un détail du cours
+§a:Qu'est-ce que la méthodologie agile et en quoi consiste-t-elle dans le contexte du développement de logiciels et d'applications web ?

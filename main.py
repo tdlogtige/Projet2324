@@ -15,7 +15,11 @@ def template():
 
 @app.route('/page_base.html')
 def page_base():
-    return render_template('page_base.html')
+    level = request.args.get('level', 'defaultLevel')
+    subject = request.args.get('subject', 'defaultSubject')
+    # Ici, vous pouvez ajouter une logique pour adapter le contenu en fonction de level et subject
+    return render_template('page_base.html', level=level, subject=subject)
+
 
 @app.route("/prompt", methods=['POST'])
 def prompt():
