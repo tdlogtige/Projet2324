@@ -2,105 +2,76 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Mon AI de mémoire</title>
+    <title>Copin de révision</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="stylesheet" href="{ url_for('static', filename='style.css') }">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-        }
-        .header {
-            background-color: #af2a99;
-            color: #fff;
-            padding: 10px;
-            text-align: right;
-        }
-        .header-title {
-            font-size: 24px;
-        }
-        .main-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .greeting {
-            text-align: right;
-            font-size: 18px;
-        }
-        .level-dropdown {
-            text-align: right;
-            margin-bottom: 20px;
-        }
-        .level-dropdown select {
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .subjects {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-        .subject-button {
-            background-color: #ccb800;
-            color: #fff;
-            padding: 20px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: calc(33.33% - 20px);
-            text-align: center;
-        }
-        .subject-button:hover {
-            background-color: #717900;
-        }
-    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 
 <body>
-    <div class="main-container">
-        <div class="header">
-            <h1 class="header-title">Aide scolaire</h1>
-            <div class="greeting">Et si tu avais 20/20 pour ton prochain devoir? </div>
-        </div>
-        <div class="level-dropdown">
-            <label for="level">Niveau : </label>
-            <select id="level">
-                <option value="CP">CP</option>
-                <option value="CE1">CE1</option>
-                <option value="CE2">CE2</option>
-                <option value="CM1">CM1</option>
-                <option value="CM2">CM2</option>
-                <option value="6ème">6ème</option>
-                <option value="5ème">5ème</option>
-                <option value="4ème">4ème</option>
-                <option value="3ème">3ème</option>
-                <option value="Seconde">Seconde</option>
-                <option value="Première">Première</option>
-                <option value="Terminale">Terminale</option>
-            </select>
-        </div>
-        <div class="subjects">
-            <button class="subject-button">Mathématiques</button>
-            <button class="subject-button">Physique</button>
-            <button class="subject-button">Chimie</button>
-            <button class= "subject-button">Français</button>
-            <button class= "subject-button">Allemand</button>
-            <button class= "subject-button">Anglais</button>
-            <button class="subject-button">Histoire</button>
-            <button class="subject-button">Géographie</button>
-            <button class="subject-button">Sciences de la Vie et de la Terre</button>
-            
-        </div>
-    </div>
+    <main class="main-container">
+        <header class="header">
+            <h1 class="header-title">Accompagnement scolaire</h1>
+        </header>
+
+        <section id="messages-container" class="messages-container">
+            <div class="message message-ai">
+                Je suis ton AIssistant de cours personnel ! Pose-moi une question sur
+                le cours et je te répondrai. Tu as fait ton choix de matière, je suis à ta disposition!
+            </div>
+        </section>
+
+        <section id="qcm-container" class="hidden">
+            <div id="qcm-question"></div>
+            <ul id="qcm-choices">
+                <!-- Les choix seront injectés ici par le JavaScript -->
+            </ul>
+            <button id="qcm-submit">Valider</button>
+            <div id="qcm-feedback"></div>
+            <button id="new-qcm-button" class="hidden">Question Suivante</button>
+            <button id="end-qcm-button" class="hidden">Résultats</button>
+
+        </section>
+
+        <form id="qcm-form" class="prompt-container">
+
+            <button type="button" class="button" id="return-chat-button">Retour au chat</button>
+
+            <button type="button" class="button" id="new-qcm-test-button">Nouveau QCM</button>
+
+        </form>
+
+
+        <form id="prompt-form" class="prompt-container">
+            <label for="prompt" class="prompt-label">Message</label>
+
+            <input type="text" id="prompt" name="prompt" class="prompt-input" autocomplete="off" />
+
+
+
+
+
+            <button type="submit" class="button" id="submit-button">Envoyer</button>
+
+            <button type="button" class="button" id="question-button">
+                Pose-moi une question !
+            </button>
+
+            <button type="button" class="button" id="qcm-test-button">QCM</button>
+
+            <input type="file" id="pdf-input" accept=".pdf" style="display:none" />
+
+            <label for="pdf-input" class="button upload-button"
+                data-tooltip="Déposer un cours au format pdf que vous souhaitez apprendre !">
+                <i class="fas fa-upload"></i>
+                <span class="tooltip-text">Déposer un cours au format pdf que vous souhaitez apprendre !</span>
+            </label>
+            <button type="button" class="button" id="darkmode-button">
+                🌙
+            </button>
+        </form>
+        <script src="{{ url_for('static', filename='prompt.js') }}"></script>
+    </main>
 </body>
 
 </html>
