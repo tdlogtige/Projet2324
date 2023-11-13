@@ -1,0 +1,44 @@
+§u:equation de la chaleur
+§a:L'équation de la chaleur est une équation aux dérivées partielles qui décrit la distribution de la température dans un milieu en fonction du temps. Elle est généralement exprimée comme suit :
+
+∂u/∂t = α∇²u
+
+où u est la distribution de la température dans le milieu, t est le temps, α est la diffusivité thermique du matériau, et ∇²u est le laplacien de la température.
+
+Cette équation stipule que le taux de variation de la température par rapport au temps (∂u/∂t) est égal au produit de la diffusivité thermique α par le laplacien de la température (∇²u).
+
+Le laplacien de la température, ∇²u, est une quantité qui mesure la divergence du flux de chaleur dans le milieu et peut être calculé comme la somme des dérivées partielles secondes de la température par rapport aux coordonnées spatiales.
+
+L'équation de la chaleur est largement utilisée dans de nombreux domaines scientifiques et techniques pour analyser et prédire la propagation de la chaleur dans les matériaux solides, les liquides et les gaz. Elle est également utilisée pour résoudre des problèmes de transfert de chaleur, tels que la conduction, la convection et le rayonnement thermiques.
+§u:1+1
+§a:1+1 est égal à 2.
+§u:equation de la chaleur
+§a:L'équation de la chaleur est une équation aux dérivées partielles qui décrit la propagation de la chaleur dans un milieu. Elle est généralement exprimée sous la forme suivante :
+
+∂u/∂t = α (∂²u/∂x² + ∂²u/∂y² + ∂²u/∂z²)
+
+où u est la fonction représentant la température à un point donné du milieu, t est le temps, x, y et z représentent les coordonnées spatiales, et α est la diffusivité thermique du matériau. 
+
+Cette équation indique que la variation temporelle de la température en un point est proportionnelle à la somme des variations spatiales de la température. En d'autres termes, elle décrit comment la chaleur se propage dans le milieu en réponse à des gradients de température.
+§u:equation de shrodinger
+§a:L'équation de Schrödinger peut être écrite en code LaTeX de la manière suivante :
+
+\[
+i\hbar\frac{{\partial \Psi}}{{\partial t}} = -\frac{{\hbar^2}}{{2m}}\frac{{\partial^2 \Psi}}{{\partial x^2}} + V(x)\Psi
+\]
+
+où $\hbar$ est la constante de Planck réduite, $\Psi$ est la fonction d'onde, $t$ est le temps, $m$ est la masse de la particule, $x$ est la position, et $V(x)$ est le potentiel.
+§u:eqt de shrodinger
+§a:La formule de l'équation de Schrödinger en code LaTeX est :
+
+\[
+i \hbar \frac{\partial }{\partial t}\Psi(\mathbf{r},t) = \left[ -\frac{\hbar^2}{2m}\nabla^2 + V(\mathbf{r}) \right]\Psi(\mathbf{r},t)
+\]
+
+où :
+- \(i\) est l'unité imaginaire,
+- \(\hbar\) est la constante de Planck réduite,
+- \(\frac{\partial }{\partial t}\) est l'opérateur de dérivée partielle par rapport au temps,
+- \(\Psi(\mathbf{r},t)\) est la fonction d'onde dépendant de la position \(\mathbf{r}\) et du temps \(t\),
+- \(-\frac{\hbar^2}{2m}\nabla^2\) est l'opérateur d'énergie cinétique,
+- \(V(\mathbf{r})\) est le potentiel dépendant de la position \(\mathbf{r}\).
