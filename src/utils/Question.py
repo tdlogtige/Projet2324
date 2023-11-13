@@ -3,7 +3,7 @@ import openai
 def gpt3_completion(entree_utilisateur, ctx, save=True):
     global contexte
     contexte = ctx
-    contexte += [{"role": "user", "content": entree_utilisateur}]
+    contexte += [{"role": "user", "content": entree_utilisateur+"en code latex avec $"}]
     res = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=contexte.copy(),
