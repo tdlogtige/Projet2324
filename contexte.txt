@@ -1,0 +1,6 @@
+§u:Donne l'équation de la chaleur
+§a:L'équation de la chaleur est donnée par l'équation de la diffusion de la chaleur, aussi connue sous le nom d'équation de la chaleur, qui peut être exprimée comme suit :
+
+\(\frac{{\partial u}}{{\partial t}} = \alpha \frac{{\partial^2 u}}{{\partial x^2}}\)
+
+où \(u\) est la température en fonction du temps \(t\) et de la position \(x\), et \(\alpha\) est la diffusion thermique. 
