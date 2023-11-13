@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, jsonify
 import os
-from src.utils.ask_question_to_pdf import ask_question_to_pdf, ask_qcm
-from src.utils.ask_question_to_pdf import contexte
+
+from src.utils.story_manager import *
+
 
 app = Flask(__name__)
 
