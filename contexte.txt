@@ -1,8 +1,0 @@
-§u:equation de la chaleur
-§a:L'équation de la chaleur est une équation aux dérivées partielles qui décrit la propagation de la chaleur dans un milieu. Elle est généralement donnée par :
-
-\[
-\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2}
-\]
-
-où \( u(x, t) \) représente la distribution de température dans le milieu à travers le temps \( t \) et l'espace \( x \), et \( k \) est la conductivité thermique du matériau.
