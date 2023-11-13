@@ -13,6 +13,9 @@ remember_question = ""
 def template():
     return render_template('index.html')
 
+@app.route('/page_base.html')
+def page_base():
+    return render_template('page_base.html')
 
 @app.route("/prompt", methods=['POST'])
 def prompt():
