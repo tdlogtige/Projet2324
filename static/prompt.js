@@ -45,9 +45,15 @@ const appendAIMessage = async (messagePromise) => {
     // Await the answer from the server
     const messageToAppend = await messagePromise();
 
-    // Replace the loader with the answer
+    // Replace the loader with the answer and render it with MathJax
     loaderElement.classList.remove("loader");
-    loaderElement.innerHTML = messageToAppend;
+    loaderElement.innerHTML = "<span class='tex'>" + messageToAppend + "</span>";
+    messagesContainer.appendChild(loaderElement);
+
+    // Render MathJax
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, loaderElement]);
+
+  
 };
 
 const handlePrompt = async (event) => {

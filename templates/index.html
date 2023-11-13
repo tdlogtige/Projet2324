@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
 </head>
 
 <body>
@@ -16,8 +21,9 @@
 
         <section id="messages-container" class="messages-container">
             <div class="message message-ai">
-                Je suis ton AIssistant de cours personnel ! Pose-moi une question sur
-                le cours et je te répondrai.
+                
+				<span class="tex">Je suis ton AIssistant de cours personnel ! Pose-moi une question sur
+                    le cours et je te répondrai. Voici l'équation de Schrödinger : \[H\psi = E\psi\]</span>
             </div>
         </section>
 
@@ -72,6 +78,21 @@
         </form>
         <script src="{{ url_for('static', filename='prompt.js') }}"></script>
     </main>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            processEscapes: true,
+            processEnvironments: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            TeX: {
+              equationNumbers: { autoNumber: "AMS" },
+              extensions: ["AMSmath.js", "AMSsymbols.js"],
+            },
+          },
+        });
+      </script>
+      
 </body>
 
 </html>

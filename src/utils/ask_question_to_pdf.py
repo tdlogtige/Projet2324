@@ -15,8 +15,6 @@ def open_file(filepath):
 
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.organization = os.getenv("OPENAI_ORGANIZATION")
-
 
 def read_pdf(filename):
     context = ""
@@ -113,7 +111,7 @@ for l in lignes:
 
 def gpt3_completion(entree_utilisateur, save=True):
     global contexte
-    contexte += [{"role": "user", "content": entree_utilisateur}]
+    contexte += [{"role": "user", "content": entree_utilisateur+"écris en code latex ave les $"}]
     res = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=contexte.copy(),
