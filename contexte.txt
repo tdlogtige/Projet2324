@@ -186,3 +186,9 @@ Il est important de noter que cette équation ne s'applique que si l'objet est s
 \]
 
 où \( u \) est la variable dépendante qui représente la température, \( t \) est le temps, \( \alpha \) est la diffusivité thermique, et \( x \), \( y \) et \( z \) sont les coordonnées spatiales.
+§u:equation de shrodinger
+§a:L'équation de Schrödinger est donnée par :
+
+\[i\hbar \frac{\partial \Psi}{\partial t} = -\frac{\hbar^2}{2m}\frac{\partial^2 \Psi}{\partial x^2} + V(x)\Psi\]
+
+où $\Psi$ est la fonction d'onde, $t$ est le temps, $x$ est la position, $m$ est la masse de la particule, $\hbar$ est la constante de Planck réduite et $V(x)$ est le potentiel.
