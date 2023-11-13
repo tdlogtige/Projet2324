@@ -1,18 +1,1 @@
-§u:Pose moi une question sur un détail du cours
-§a:Quelle était l'année de fondation de l'École des Ponts et Chaussées ?
-§u:Ma réponse est : 4. Dis si elle est juste et le cas échéant donne la réponse en pas plus de 3 phrases.
-§a:La réponse est correcte. L'École des Ponts et Chaussées a été fondée en 1747 par Daniel-Charles Trudaine dans le but de former des ingénieurs pour améliorer l'infrastructure en France. Depuis lors, elle a joué un rôle majeur dans le développement de l'ingénierie et de l'éducation technique en France et à l'échelle internationale.
-§u:Pose moi une question sur un détail du cours
-§a:Quelle était l'objectif initial de la création de l'École des Ponts et Chaussées ?
-§u:Ma réponse est : Rien. Dis si elle est juste et le cas échéant donne la réponse en pas plus de 3 phrases.
-§a:Votre réponse est incorrecte. L'École des Ponts et Chaussées a joué un rôle essentiel dans le développement de l'ingénierie et de l'infrastructure en France, tout en ayant une influence majeure sur l'éducation technique et l'ingénierie dans le monde entier.
-§u:Pose moi une question sur un détail du cours
-§a:Quel est le rôle initial de l'École des Ponts et Chaussées lors de sa création au XVIIIe siècle ?
-§u:Ma réponse est : Construire des immeubles. Dis si elle est juste et le cas échéant donne la réponse en pas plus de 3 phrases.
-§a:Ta réponse est incorrecte. L'objectif initial de l'École des Ponts et Chaussées était de former des ingénieurs capables de concevoir et de superviser la construction de routes et de ponts, pas des immeubles. Leur rôle principal était d'améliorer l'infrastructure en France.
-§u:Pose moi une question sur un détail du cours
-§a:Quelles sont les valeurs clés de Theodo en matière de culture d'entreprise ?
-§u:Ma réponse est : Je ne sais pas. Dis si elle est juste et le cas échéant donne la réponse en pas plus de 3 phrases.
-§a:Ta réponse est incorrecte. Theodo est une entreprise spécialisée dans le développement agile de logiciels et d'applications web. Elle se démarque par sa capacité à intégrer les technologies et les meilleures pratiques du marché dans ses projets. Elle a également adopté un modèle organisationnel flat, sans hiérarchie traditionnelle.
-§u:C'est quoi Théodo ?
-§a:Theodo est une entreprise spécialisée dans le développement agile de logiciels et d'applications web. Fondée en 2009 à Paris, elle est devenue une référence dans le secteur du développement web et mobile. Son objectif est d'accompagner les entreprises, des startups aux grands groupes, dans leur transformation digitale en adoptant une méthodologie agile. Cela implique des cycles de développement courts, une collaboration étroite avec le client et une capacité à s'adapter rapidement aux changements pour fournir un produit final de qualité répondant aux besoins spécifiques du client.
+
