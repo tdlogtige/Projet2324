@@ -4,3 +4,9 @@
 \(\frac{{\partial u}}{{\partial t}} = \alpha \frac{{\partial^2 u}}{{\partial x^2}}\)
 
 où \(u\) est la température en fonction du temps \(t\) et de la position \(x\), et \(\alpha\) est la diffusion thermique. 
+§u:Donne équation de la chaleur
+§a:L'équation de la chaleur, aussi appelée équation de la diffusion de la chaleur, peut s'écrire en utilisant la notation mathématique :
+
+\[ \frac{{\partial u}}{{\partial t}} = \alpha \frac{{\partial^2 u}}{{\partial x^2}} \]
+
+où \( u \) est la température en fonction du temps \( t \) et de la position \( x \), et \( \alpha \) est la diffusivité thermique du matériau.
