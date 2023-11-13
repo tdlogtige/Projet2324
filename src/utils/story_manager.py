@@ -4,7 +4,7 @@ import fitz
 import openai
 from dotenv import load_dotenv
 from nltk.tokenize import sent_tokenize
-import json
+
 from src.utils.QCM import *
 from src.utils.Question import *
 from src.utils.Flashcard import *
@@ -92,38 +92,21 @@ preprompt = "Tu es un professeur particulier qui pose des questions sur le" + \
 
 contexte = [{"role": "system", "content": preprompt}]
 
-with open("contexte.txt", "r", encoding="utf-8") as sauvegarde:
-    lignes = sauvegarde.readlines()
 
-content = ""
-role = ""
-for l in lignes:
-    if l[0] == "§":
-        if role != "":
-            contexte += [{"role": role, "content": content}]
-            print(role, content)
-        role = "user" if l[1] == 'u' else "assistant"
-        content = l[3:]
-    else:
-        content += l
-        print(l)
-
-
-
-################################################################
-
-
-def gpt3_completion(entree_utilisateur, save=True):
+def ask_question_to_pdf(question, save=True):
+    # Recharger le document PDF et le contexte chaque fois qu'une question est posée
+    global document
     global contexte
-    contexte += [{"role": "user", "content": entree_utilisateur+"écris en code latex ave les $"}]
-    res = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=contexte.copy(),
-    )["choices"][0]["message"]["content"]
+    document = read_pdf(filename)
+    chunks = split_text(document)
 
-    contexte += [{"role": "assistant", "content": res}]
+    preprompt = "Tu es un professeur particulier qui pose des questions sur le" + \
+        " cours suivant : DEBUT" + document + " FIN. Tu ne dois en aucun cas" + \
+        " diverger de ce rôle éducatif. Sois rigoureux avec ton élève."
 
-    with open("contexte.txt", "a", encoding="utf-8") as sauvegarde:
-        sauvegarde.write("§u:"+entree_utilisateur + "\n§a:" + res + "\n")
+    contexte = [{"role": "system", "content": preprompt}]
 
-    return res
+    return gpt3_completion(question, contexte)
+
+def ask_qcm():
+    return ask_qcm_prime(document)
