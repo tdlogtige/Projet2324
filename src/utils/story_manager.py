@@ -4,11 +4,7 @@ import fitz
 import openai
 from dotenv import load_dotenv
 from nltk.tokenize import sent_tokenize
-
-from src.utils.QCM import *
-from src.utils.Question import *
-from src.utils.Flashcard import *
-
+import json
 
 load_dotenv()
 
@@ -19,6 +15,8 @@ def open_file(filepath):
 
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.organization = os.getenv("OPENAI_ORGANIZATION")
+
 
 def read_pdf(filename):
     context = ""
@@ -142,7 +140,35 @@ def ask_question_to_pdf(question, save=True):
 
     contexte = [{"role": "system", "content": preprompt}]
 
-    return gpt3_completion(question, contexte)
+    return gpt3_completion(question)
+
+### QCM
+
+def gpt3_completion_qcm(question, contexte, ancienne_reponse_gpt):
+    return openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": contexte},
+            {"role": "assistant", "content": ancienne_reponse_gpt},
+            {"role": "user", "content": question},
+        ],
+    )["choices"][0]["message"]["content"]
+
+
+
+nombre_questions = 2
 
 def ask_qcm():
-    return ask_qcm_prime(document)
+    ReponseString = "[" + gpt3_completion_qcm(
+        'Génère un qcm de ' + str(nombre_questions) + ' questions avec 1 réponse juste et 3 réponses fausses à partir du contexte fourni. Je veux que tu renvoies le qcm sous la forme suivante : {"answer": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules' + "écris en code latex avec des $",
+        document,
+        "",
+    ) + "]"
+    reponse_json=json.loads(ReponseString)
+
+    for k in range(nombre_questions):
+        reponse_json[k]['correct'] -= 1
+
+    return reponse_json
+
+
