@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 import os
-
 from src.utils.story_manager import *
 
 
@@ -9,9 +8,11 @@ app = Flask(__name__)
 remember_question = ""
 
 
+
 @app.route("/")
 def template():
     return render_template('index.html')
+
 
 @app.route('/page_base.html')
 def page_base():
