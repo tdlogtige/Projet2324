@@ -2,7 +2,7 @@
 <html lang="fr">
 
 <head>
-    <title>Copin de révision</title>
+    <title>Copain de révision</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
@@ -46,6 +46,30 @@
             <button type="button" class="button" id="new-qcm-test-button">Nouveau QCM</button>
 
         </form>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const level = urlParams.get('level');
+                const subject = urlParams.get('subject');
+            
+                const qcmButton = document.getElementById('qcm-test-button');
+                if (qcmButton) {
+                    qcmButton.addEventListener('click', function() {
+                        fetch(`/qcm?level=${level}&subject=${subject}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // Ici, vous pouvez traiter la réponse et afficher le QCM
+                                // Par exemple, en mettant à jour les éléments du DOM dans 'qcm-container'
+                                console.log(data); // Afficher les données pour déboguer
+                            })
+                            .catch(error => console.error('Error:', error));
+                    });
+                }
+            });
+        </script>
+            
+            
 
 
         <form id="prompt-form" class="prompt-container">

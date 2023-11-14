@@ -204,6 +204,8 @@ let questionIndex = 0;
 let questionList = [];
 let nombreQuestions = 2;
 
+
+
 const handleQCMTestClick = async () => {
     while (messagesContainer.firstChild) {
         messagesContainer.removeChild(messagesContainer.lastChild);
@@ -303,6 +305,9 @@ function displayQCM(data) {     //data doit être un dictionnaire
     };
 
     newQCMButton.addEventListener("click", handleNewQCMClick);
+
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, loaderElement]);
+
 
 }
 

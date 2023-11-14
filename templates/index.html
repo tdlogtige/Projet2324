@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Copin de révision</title>
+    <title>Copain de révision</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="{ url_for('static', filename='style.css') }">
     <style>
@@ -103,19 +103,26 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const levelSelect = document.getElementById('level');
-            const subjectButtons = document.querySelectorAll('.subject-button');
-
-            subjectButtons.forEach(button => {
-                button.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const level = levelSelect.value;
-                    const subject = this.textContent.trim();
-                    window.location.href = `/page_base.html?level=${level}&subject=${subject}`;
+            const urlParams = new URLSearchParams(window.location.search);
+            const level = urlParams.get('level');
+            const subject = urlParams.get('subject');
+        
+            const qcmButton = document.getElementById('qcm-test-button');
+            if (qcmButton) {
+                qcmButton.addEventListener('click', function() {
+                    fetch(`/qcm?level=${level}&subject=${subject}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Ici, vous pouvez traiter la réponse et afficher le QCM
+                            // Par exemple, en mettant à jour les éléments du DOM dans 'qcm-container'
+                            console.log(data); // Afficher les données pour déboguer
+                        })
+                        .catch(error => console.error('Error:', error));
                 });
-            });
+            }
         });
     </script>
+        
 
 </body>
 
