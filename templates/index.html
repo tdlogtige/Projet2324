@@ -99,29 +99,6 @@
             <a href="page_base.html" class="subject-button">SVT</a>
         </div>
     </div>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const level = urlParams.get('level');
-            const subject = urlParams.get('subject');
-        
-            const qcmButton = document.getElementById('qcm-test-button');
-            if (qcmButton) {
-                qcmButton.addEventListener('click', function() {
-                    fetch(`/qcm?level=${level}&subject=${subject}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            // Ici, vous pouvez traiter la réponse et afficher le QCM
-                            // Par exemple, en mettant à jour les éléments du DOM dans 'qcm-container'
-                            console.log(data); // Afficher les données pour déboguer
-                        })
-                        .catch(error => console.error('Error:', error));
-                });
-            }
-        });
-    </script>
         
 
 </body>
