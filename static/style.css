@@ -309,6 +309,9 @@ body {
     color: #B87424;
 }
 
+#student-feedback {
+    display : none;
+}
 
 #student-feedback {
     margin-top: 20px;
