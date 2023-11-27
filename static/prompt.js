@@ -242,6 +242,9 @@ const handleQCMTestClick = async () => {
 
 
 const handleNewQCMClick = async () => {
+    // Masquer les éléments de feedback pour la nouvelle question
+    document.getElementById('student-feedback').style.display = 'none';
+    
     data = questionList[questionIndex];
     questionIndex += 1;
     displayQCM(data);
@@ -269,7 +272,7 @@ const handleReturnChatButton = async () => {
 }
 
 function displayQCM(data) {     //data doit être un dictionnaire
-
+    
     const { answer, choices, correct } = data;
     const newQCMButton = document.getElementById("new-qcm-button");
     newQCMButton.classList.add("hidden");
@@ -295,7 +298,9 @@ function displayQCM(data) {     //data doit être un dictionnaire
     qcmContainer.classList.remove("hidden");
 
     qcmSubmit.onclick = function () {
+
         qcmSubmit.classList.add("hidden");
+    
         const selected = document.querySelector("input[name='qcm-choice']:checked");
         if (selected) {
             if (parseInt(selected.value) === correct) {
@@ -319,14 +324,35 @@ function displayQCM(data) {     //data doit être un dictionnaire
             newQCMButton.classList.add("hidden");  // Cache le bouton
             qcmSubmit.classList.remove("hidden");
         }
+
+        // Afficher les éléments de feedback
+        document.getElementById('student-feedback').style.display = 'block';
+
+
     };
 
     newQCMButton.addEventListener("click", handleNewQCMClick);
 
     MathJax.Hub.Queue(["Typeset", MathJax.Hub, loaderElement]);
 
+    // Réinitialiser les boutons de feedback pour la nouvelle question
+    const thumbs = document.querySelectorAll('.feedback-button');
+    thumbs.forEach(button => {
+        button.classList.remove('selected');
+        button.addEventListener('click', function() {
+            thumbs.forEach(btn => btn.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+    });
+
+    // Réinitialiser le sélecteur de niveau de difficulté
+    const difficultyLevelSelector = document.getElementById('difficulty-level');
+    difficultyLevelSelector.value = ""; // Mettre la valeur à vide pour la réinitialisation
 
 }
+
+
+
 
 const loadChat = async () => {
     const response = await fetch("/load-chat", {
