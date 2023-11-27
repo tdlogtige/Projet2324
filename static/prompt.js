@@ -204,6 +204,15 @@ let questionIndex = 0;
 let questionList = [];
 let nombreQuestions = 2;
 
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const qcmButton = document.getElementById('qcm-test-button');
+    if (qcmButton) {
+        qcmButton.addEventListener('click', handleQCMTestClick);
+    }
+});
+
 const handleQCMTestClick = async () => {
     while (messagesContainer.firstChild) {
         messagesContainer.removeChild(messagesContainer.lastChild);
@@ -211,15 +220,25 @@ const handleQCMTestClick = async () => {
     appendSimpleAIMessage("Mode Test");
     promptForm.style.display = "none";
     qcmForm.style.display = "none";
-    const response = await fetch("/qcm", { method: "GET" });
-    const result = await response.json();
-    questionList = result.answer;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const level = urlParams.get('level');
+    const subject = urlParams.get('subject');
+
+    const response = await fetch(`/qcm?level=${level}&subject=${subject}`, { method: "GET" });
+    const data = await response.json();
+
+    // Traitement des données reçues et mise à jour de l'interface utilisateur
+    //console.log(data); // Afficher les données pour déboguer
+    questionList = data.answer;
     qcmContainer.classList.remove("hidden");
     handleNewQCMClick();
 }
 
-const qcmTestButton = document.getElementById("qcm-test-button");
-qcmTestButton.addEventListener("click", handleQCMTestClick);
+
+// Suppression de l'événement listener redondant sur 'qcm-test-button'
+// car il est déjà défini dans le premier morceau de code.
+
 
 
 const handleNewQCMClick = async () => {
@@ -303,6 +322,9 @@ function displayQCM(data) {     //data doit être un dictionnaire
     };
 
     newQCMButton.addEventListener("click", handleNewQCMClick);
+
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, loaderElement]);
+
 
 }
 

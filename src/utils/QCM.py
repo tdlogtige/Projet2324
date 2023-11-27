@@ -15,11 +15,9 @@ collection = database.answer
 
 
 def add_answer(qcm):
-
-    # Ajoute les données dans MongoDB
     collection.insert_one(parse_json(qcm))
-
     return jsonify({"message": "Document ajouté avec succès"}), 201
+
 
 
 
@@ -37,16 +35,19 @@ def gpt3_completion_qcm(question, contexte, ancienne_reponse_gpt):
 nombre_questions = 2
 
 
-def ask_qcm_prime(document):
+def ask_qcm_prime(subject,level):
+    contexte = f'L objectif est de faire réviser l élève sur des cours de {subject} de classe de {level}. Utilise latex pour les équations mathématiques'
     ReponseString = "[" + gpt3_completion_qcm(
-        'Génère un qcm de ' + str(nombre_questions) + ' questions avec 1 réponse juste et 3 réponses fausses à partir du contexte fourni. Je veux que tu renvoies le qcm sous la forme suivante : {"answer": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules, en code latex avec $',
-        document,
+        'Génère un qcm de ' + str(nombre_questions) + ' questions avec 1 réponse juste et 3 réponses fausses à partir du contexte fourni. Je veux que tu renvoies le qcm sous la forme suivante : {"answer": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules',
+        contexte,
         "",
     ) + "]"
     response_json=json.loads(ReponseString)
 
     for k in range(nombre_questions):
         response_json[k]['correct'] -= 1
-        #add_answer(response_json[k])
+        response_json[k]['level'] = level
+        response_json[k]['subject'] = subject
+        add_answer(response_json[k])
 
     return response_json

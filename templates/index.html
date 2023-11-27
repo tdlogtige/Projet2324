@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Copin de révision</title>
+    <title>Copain de révision</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="{ url_for('static', filename='style.css') }">
     <style>
@@ -99,23 +99,7 @@
             <a href="page_base.html" class="subject-button">SVT</a>
         </div>
     </div>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const levelSelect = document.getElementById('level');
-            const subjectButtons = document.querySelectorAll('.subject-button');
-
-            subjectButtons.forEach(button => {
-                button.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const level = levelSelect.value;
-                    const subject = this.textContent.trim();
-                    window.location.href = `/page_base.html?level=${level}&subject=${subject}`;
-                });
-            });
-        });
-    </script>
+        
 
 </body>
 
