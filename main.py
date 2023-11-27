@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 import os
-
 from src.utils.story_manager import *
 
 
@@ -9,9 +8,18 @@ app = Flask(__name__)
 remember_question = ""
 
 
+
 @app.route("/")
 def template():
     return render_template('index.html')
+
+
+@app.route('/page_base.html')
+def page_base():
+    level = request.args.get('level', 'defaultLevel')
+    subject = request.args.get('subject', 'defaultSubject')
+    # Ici, vous pouvez ajouter une logique pour adapter le contenu en fonction de level et subject
+    return render_template('page_base.html', level=level, subject=subject)
 
 
 @app.route("/prompt", methods=['POST'])

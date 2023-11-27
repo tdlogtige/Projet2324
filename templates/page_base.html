@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>Copin de révision</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+
+    <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</head>
+
+
+<body>
+    <main class="main-container">
+        <header class="header">
+            <h1 class="header-title">Accompagnement scolaire</h1>
+        </header>
+
+        <section id="messages-container" class="messages-container">
+            <div class="message message-ai">
+                Je suis ton AIssistant de cours personnel ! Pose-moi une question sur
+                le cours et je te répondrai. Tu as fait ton choix de matière, je suis à ta disposition!
+            </div>
+        </section>
+
+        <section id="qcm-container" class="hidden">
+            <div id="qcm-question"></div>
+            <ul id="qcm-choices">
+                <!-- Les choix seront injectés ici par le JavaScript -->
+            </ul>
+            <button id="qcm-submit">Valider</button>
+            <div id="qcm-feedback"></div>
+            <button id="new-qcm-button" class="hidden">Question Suivante</button>
+            <button id="end-qcm-button" class="hidden">Résultats</button>
+
+        </section>
+
+        <form id="qcm-form" class="prompt-container">
+
+            <button type="button" class="button" id="return-chat-button">Retour au chat</button>
+
+            <button type="button" class="button" id="new-qcm-test-button">Nouveau QCM</button>
+
+        </form>
+
+
+        <form id="prompt-form" class="prompt-container">
+            <label for="prompt" class="prompt-label">Message</label>
+
+            <input type="text" id="prompt" name="prompt" class="prompt-input" autocomplete="off" />
+
+
+
+
+
+            <button type="submit" class="button" id="submit-button">Envoyer</button>
+
+            <button type="button" class="button" id="question-button">
+                Pose-moi une question !
+            </button>
+
+            <button type="button" class="button" id="qcm-test-button">QCM</button>
+
+            <input type="file" id="pdf-input" accept=".pdf" style="display:none" />
+
+            <label for="pdf-input" class="button upload-button"
+                data-tooltip="Déposer un cours au format pdf que vous souhaitez apprendre !">
+                <i class="fas fa-upload"></i>
+                <span class="tooltip-text">Déposer un cours au format pdf que vous souhaitez apprendre !</span>
+            </label>
+            <button type="button" class="button" id="darkmode-button">
+                🌙
+            </button>
+        </form>
+        <script src="{{ url_for('static', filename='prompt.js') }}"></script>
+    </main>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            processEscapes: true,
+            processEnvironments: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            TeX: {
+              equationNumbers: { autoNumber: "AMS" },
+              extensions: ["AMSmath.js", "AMSsymbols.js"],
+            },
+          },
+        });
+      </script>
+</body>
+
+</html>

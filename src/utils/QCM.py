@@ -1,5 +1,27 @@
 import openai
 import json
+from src.utils.init_db import db as database
+from flask import jsonify
+from bson import json_util
+import json
+
+
+
+def parse_json(data):
+    return json.loads(json_util.dumps(data))
+
+
+collection = database.answer
+
+
+def add_answer(qcm):
+
+    # Ajoute les données dans MongoDB
+    collection.insert_one(parse_json(qcm))
+
+    return jsonify({"message": "Document ajouté avec succès"}), 201
+
+
 
 def gpt3_completion_qcm(question, contexte, ancienne_reponse_gpt):
     return openai.ChatCompletion.create(
@@ -12,8 +34,8 @@ def gpt3_completion_qcm(question, contexte, ancienne_reponse_gpt):
     )["choices"][0]["message"]["content"]
 
 
-
 nombre_questions = 2
+
 
 def ask_qcm_prime(document):
     ReponseString = "[" + gpt3_completion_qcm(
@@ -21,11 +43,10 @@ def ask_qcm_prime(document):
         document,
         "",
     ) + "]"
-    reponse_json=json.loads(ReponseString)
+    response_json=json.loads(ReponseString)
 
     for k in range(nombre_questions):
-        reponse_json[k]['correct'] -= 1
+        response_json[k]['correct'] -= 1
+        #add_answer(response_json[k])
 
-    return reponse_json
-
-
+    return response_json
