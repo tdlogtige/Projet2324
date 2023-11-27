@@ -333,8 +333,6 @@ function displayQCM(data) {     //data doit être un dictionnaire
 
     newQCMButton.addEventListener("click", handleNewQCMClick);
 
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, loaderElement]);
-
     // Réinitialiser les boutons de feedback pour la nouvelle question
     const thumbs = document.querySelectorAll('.feedback-button');
     thumbs.forEach(button => {
