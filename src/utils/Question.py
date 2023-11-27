@@ -5,7 +5,7 @@ def gpt3_completion(entree_utilisateur, ctx, save=True):
     contexte = ctx
     contexte += [{"role": "user", "content": entree_utilisateur+"en code latex et sans rien dire à propos de latex"}]
     res = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4",
         messages=contexte.copy(),
     )["choices"][0]["message"]["content"]
 
@@ -15,3 +15,4 @@ def gpt3_completion(entree_utilisateur, ctx, save=True):
         sauvegarde.write("§u:"+entree_utilisateur + "\n§a:" + res + "\n")
 
     return res
+
