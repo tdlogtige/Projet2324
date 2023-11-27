@@ -15,8 +15,11 @@ def open_file(filepath):
 
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
+<<<<<<< Updated upstream
 openai.organization = os.getenv("OPENAI_ORGANIZATION")
 
+=======
+>>>>>>> Stashed changes
 
 def read_pdf(filename):
     context = ""
@@ -113,7 +116,11 @@ for l in lignes:
 
 def gpt3_completion(entree_utilisateur, save=True):
     global contexte
+<<<<<<< Updated upstream
     contexte += [{"role": "user", "content": entree_utilisateur+"écris en code latex avec des $"}]
+=======
+    contexte += [{"role": "user", "content": entree_utilisateur+"écris en code latex ave les $"}]
+>>>>>>> Stashed changes
     res = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=contexte.copy(),
@@ -160,7 +167,11 @@ nombre_questions = 2
 
 def ask_qcm():
     ReponseString = "[" + gpt3_completion_qcm(
+<<<<<<< Updated upstream
         'Génère un qcm de ' + str(nombre_questions) + ' questions avec 1 réponse juste et 3 réponses fausses à partir du contexte fourni. Je veux que tu renvoies le qcm sous la forme suivante : {"answer": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules' + "écris en code latex avec des $",
+=======
+        'Génère un qcm de ' + str(nombre_questions) + ' questions avec 1 réponse juste et 3 réponses fausses à partir du contexte fourni. Je veux que tu renvoies le qcm sous la forme suivante : {"answer": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules',
+>>>>>>> Stashed changes
         document,
         "",
     ) + "]"
