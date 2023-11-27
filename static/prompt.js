@@ -328,7 +328,6 @@ function displayQCM(data) {     //data doit être un dictionnaire
         // Afficher les éléments de feedback
         document.getElementById('student-feedback').style.display = 'block';
 
-
     };
 
     newQCMButton.addEventListener("click", handleNewQCMClick);

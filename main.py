@@ -75,3 +75,17 @@ def pose_qcm():
     qcm_response = ask_qcm_prime(level, subject)
     return {"answer": qcm_response}
 
+@app.route('/feedback', methods=['POST'])
+def handle_feedback():
+    feedback_data = request.json
+    question_id = feedback_data['questionId']
+    thumb_feedback = feedback_data['thumbFeedback']
+    difficulty_feedback = feedback_data['difficultyFeedback']
+
+    # Mettre à jour la question dans MongoDB avec le feedback
+    collection.update_one(
+        {'_id': ObjectId(question_id)},
+        {'$set': {'feedback': {'thumb': thumb_feedback, 'difficulty': difficulty_feedback}}}
+    )
+
+    return jsonify({"message": "Feedback enregistré avec succès"}), 200
