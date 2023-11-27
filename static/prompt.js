@@ -250,7 +250,7 @@ const handleReturnChatButton = async () => {
 }
 
 function displayQCM(data) {     //data doit être un dictionnaire
-
+    
     const { answer, choices, correct } = data;
     const newQCMButton = document.getElementById("new-qcm-button");
     newQCMButton.classList.add("hidden");
@@ -276,7 +276,9 @@ function displayQCM(data) {     //data doit être un dictionnaire
     qcmContainer.classList.remove("hidden");
 
     qcmSubmit.onclick = function () {
+
         qcmSubmit.classList.add("hidden");
+    
         const selected = document.querySelector("input[name='qcm-choice']:checked");
         if (selected) {
             if (parseInt(selected.value) === correct) {
@@ -300,11 +302,16 @@ function displayQCM(data) {     //data doit être un dictionnaire
             newQCMButton.classList.add("hidden");  // Cache le bouton
             qcmSubmit.classList.remove("hidden");
         }
+
+
     };
 
     newQCMButton.addEventListener("click", handleNewQCMClick);
 
 }
+
+
+
 
 const loadChat = async () => {
     const response = await fetch("/load-chat", {
