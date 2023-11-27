@@ -18,28 +18,32 @@ def template():
 def page_base():
     level = request.args.get('level', 'defaultLevel')
     subject = request.args.get('subject', 'defaultSubject')
-    # Ici, vous pouvez ajouter une logique pour adapter le contenu en fonction de level et subject
     return render_template('page_base.html', level=level, subject=subject)
 
 
 @app.route("/prompt", methods=['POST'])
 def prompt():
-    reponse = ask_question_to_pdf(request.form["prompt"])
+    level = request.args.get('level', 'defaultLevel')
+    subject = request.args.get('subject', 'defaultSubject')
+    reponse = ask_question_to_pdf_perso(request.form["prompt"], level, subject)
     return {"answer": reponse}
+
 
 
 @app.route("/question", methods=['GET'])
 def pose_question():
-    return {"answer": ask_question_to_pdf("Pose moi une question sur un détail du cours", False)}
-
+    level = request.args.get('level', 'defaultLevel')
+    subject = request.args.get('subject', 'defaultSubject')
+    return {"answer": ask_question_to_pdf_perso("Pose moi une question sur un détail du cours pour mon niveau et ce sujet", False, level, subject)}
 
 @app.route("/answer", methods=['POST'])
 def reponse_question():
-    reponse = ask_question_to_pdf("Ma réponse est : " +
-                                  request.form["prompt"] +
-                                  ". Dis si elle est juste et le cas échéant" +
-                                  " donne la réponse en pas plus de 3 phrases.")
+    level = request.args.get('level', 'defaultLevel')
+    subject = request.args.get('subject', 'defaultSubject')
+    reponse = ask_question_to_pdf_perso("Ma réponse est : " + request.form["prompt"] +
+                                  ". Dis si elle est juste et le cas échéant donne la réponse en pas plus de 3 phrases.", level, subject)
     return {"answer": reponse}
+
 
 @app.route('/upload-pdf', methods=['POST'])
 def upload_pdf():
@@ -63,8 +67,11 @@ def upload_pdf():
 
 @app.route("/qcm", methods=["GET"])
 def pose_qcm():
-    reponse = ask_qcm()
+    level = request.args.get('level', 'defaultLevel')
+    subject = request.args.get('subject', 'defaultSubject')
+    reponse = ask_qcm_perso(level, subject)
     return {"answer": reponse}
+
 
 @app.route("/load-chat", methods=["GET"])
 def load_chat():
