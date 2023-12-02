@@ -51,3 +51,26 @@ def ask_qcm_prime(subject,level):
         add_answer(response_json[k])
 
     return response_json
+
+
+def get_question_from_db(level, subject):
+    # Récupérer deux questions correspondant au niveau et au sujet
+    questions_cursor = collection.find({"level": subject, "subject": level}).limit(2)
+
+    # Convertir le curseur en liste
+    questions = list(questions_cursor)
+
+    # Vérifier si des questions ont été trouvées
+    if questions:
+        formatted_questions = []
+        for question_data in questions:
+            formatted_question = {
+                "question": question_data["question"],
+                "choices": question_data["choices"],
+                "correct": question_data["correct"]
+            }
+            formatted_questions.append(formatted_question)
+        return formatted_questions
+    else:
+        return {"error": "Aucune question trouvée pour ce niveau et sujet"}
+
