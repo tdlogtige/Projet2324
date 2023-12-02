@@ -241,15 +241,6 @@ let questionIndex = 0;
 let questionList = [];
 let nombreQuestions = 2;
 
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    const qcmButton = document.getElementById('qcm-test-button');
-    if (qcmButton) {
-        qcmButton.addEventListener('click', handleQCMTestClick);
-    }
-});
-
 const handleQCMTestClick = async () => {
     while (messagesContainer.firstChild) {
         messagesContainer.removeChild(messagesContainer.lastChild);
@@ -257,31 +248,18 @@ const handleQCMTestClick = async () => {
     appendSimpleAIMessage("Mode Test");
     promptForm.style.display = "none";
     qcmForm.style.display = "none";
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const level = urlParams.get('level');
-    const subject = urlParams.get('subject');
-
-    const response = await fetch(`/qcm?level=${level}&subject=${subject}`, { method: "GET" });
-    const data = await response.json();
-
-    // Traitement des données reçues et mise à jour de l'interface utilisateur
-    //console.log(data); // Afficher les données pour déboguer
-    questionList = data.answer;
+    const response = await fetch("/qcm", { method: "GET" });
+    const result = await response.json();
+    questionList = result.answer;
     qcmContainer.classList.remove("hidden");
     handleNewQCMClick();
 }
 
-
-// Suppression de l'événement listener redondant sur 'qcm-test-button'
-// car il est déjà défini dans le premier morceau de code.
-
+const qcmTestButton = document.getElementById("qcm-test-button");
+qcmTestButton.addEventListener("click", handleQCMTestClick);
 
 
 const handleNewQCMClick = async () => {
-    // Masquer les éléments de feedback pour la nouvelle question
-    document.getElementById('student-feedback').style.display = 'none';
-    
     data = questionList[questionIndex];
     questionIndex += 1;
     displayQCM(data);
@@ -310,7 +288,7 @@ const handleReturnChatButton = async () => {
 
 //gere qcm et envoie sur mongodb la question posée
 function displayQCM(data) {     //data doit être un dictionnaire
-    
+
     const { answer, choices, correct } = data;
     const newQCMButton = document.getElementById("new-qcm-button");
     newQCMButton.classList.add("hidden");
@@ -336,9 +314,7 @@ function displayQCM(data) {     //data doit être un dictionnaire
     qcmContainer.classList.remove("hidden");
 
     qcmSubmit.onclick = function () {
-
         qcmSubmit.classList.add("hidden");
-    
         const selected = document.querySelector("input[name='qcm-choice']:checked");
         if (selected) {
             if (parseInt(selected.value) === correct) {
@@ -362,28 +338,9 @@ function displayQCM(data) {     //data doit être un dictionnaire
             newQCMButton.classList.add("hidden");  // Cache le bouton
             qcmSubmit.classList.remove("hidden");
         }
-
-        // Afficher les éléments de feedback
-        document.getElementById('student-feedback').style.display = 'block';
-
-
     };
 
     newQCMButton.addEventListener("click", handleNewQCMClick);
-
-    // Réinitialiser les boutons de feedback pour la nouvelle question
-    const thumbs = document.querySelectorAll('.feedback-button');
-    thumbs.forEach(button => {
-        button.classList.remove('selected');
-        button.addEventListener('click', function() {
-            thumbs.forEach(btn => btn.classList.remove('selected'));
-            this.classList.add('selected');
-        });
-    });
-
-    // Réinitialiser le sélecteur de niveau de difficulté
-    const difficultyLevelSelector = document.getElementById('difficulty-level');
-    difficultyLevelSelector.value = ""; // Mettre la valeur à vide pour la réinitialisation
 
 }
 
