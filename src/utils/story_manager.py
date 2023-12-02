@@ -124,7 +124,3 @@ def ask_question_to_pdf_perso(question, level, subject, save=True):
 
     return gpt3_completion_perso(level, subject, question, contexte, "")
 
-
-
-def ask_qcm_perso(level, subject):
-    return ask_qcm_perso(level, subject, document)

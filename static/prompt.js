@@ -344,6 +344,7 @@ function displayQCM(data) {     //data doit être un dictionnaire
 
 }
 
+
 const loadChat = async () => {
     const response = await fetch("/load-chat", {
         method: "GET"

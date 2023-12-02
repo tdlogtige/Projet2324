@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import os
 from src.utils.story_manager import *
 
 
 app = Flask(__name__)
+app.secret_key = 'une_cle_secrete'  # Nécessaire pour utiliser les sessions
 
 remember_question = ""
 
@@ -16,8 +17,13 @@ def template():
 
 @app.route('/page_base.html')
 def page_base():
-    level = request.args.get('level', 'defaultLevel')
-    subject = request.args.get('subject', 'defaultSubject')
+    level = request.args.get('level')
+    subject = request.args.get('subject')
+    
+    # Stocker les paramètres dans la session pour une utilisation ultérieure
+    session['level'] = level
+    session['subject'] = subject
+
     return render_template('page_base.html', level=level, subject=subject)
 
 
@@ -35,6 +41,7 @@ def pose_question():
     level = request.args.get('level', 'defaultLevel')
     subject = request.args.get('subject', 'defaultSubject')
     return {"answer": ask_question_to_pdf_perso("Pose moi une question sur un détail du cours pour mon niveau et ce sujet", False, level, subject)}
+
 
 @app.route("/answer", methods=['POST'])
 def reponse_question():
@@ -65,10 +72,12 @@ def upload_pdf():
 
     return jsonify({'error': 'Invalid file format'}), 400
 
+
 @app.route("/qcm", methods=["GET"])
 def pose_qcm():
-    level = request.args.get('level', 'defaultLevel')
-    subject = request.args.get('subject', 'defaultSubject')
+    # Récupérer les paramètres de la session
+    level = session.get('level')
+    subject = session.get('subject')
     reponse = ask_qcm_perso(level, subject)
     return {"answer": reponse}
 
