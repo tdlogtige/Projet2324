@@ -117,17 +117,22 @@
         document.addEventListener('DOMContentLoaded', function() {
             const levelSelect = document.getElementById('level');
             const subjectButtons = document.querySelectorAll('.subject-button');
-
+            const professorModeButton = document.getElementById('professor-mode-btn'); // Obtenir le bouton Mode Professeur
+    
             subjectButtons.forEach(button => {
                 button.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const level = levelSelect.value;
-                    const subject = this.textContent.trim();
-                    window.location.href = `/page_base.html?level=${level}&subject=${subject}`;
+                    // Vérifier si le bouton cliqué n'est pas le bouton Mode Professeur
+                    if (this !== professorModeButton) {
+                        event.preventDefault();
+                        const level = levelSelect.value;
+                        const subject = this.textContent.trim();
+                        window.location.href = `/page_base.html?level=${level}&subject=${subject}`;
+                    }
                 });
             });
         });
     </script>
+    
         
 
 </body>

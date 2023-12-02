@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Affichage des Questions QCM</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_create.css') }}">
+</head>
+<body>
+    <div class="main-container">
+        <h2>Questions QCM Générées</h2>
+        <div class="questions-container">
+            {% for question in questions %}
+                <div class="question">
+                    <p><strong>Question :</strong> {{ question['question'] }}</p>
+                    <ul>
+                        {% for choice in question['choices'] %}
+                            <li>{{ choice }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p><strong>Réponse Correcte :</strong> {{ question['correct'] }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

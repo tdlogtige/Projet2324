@@ -23,8 +23,19 @@ def page_base():
     return render_template('page_base.html', level=level, subject=subject)
 
 
-@app.route('/create_question.html')
+@app.route('/create_question.html', methods=['GET', 'POST'])
 def create_question():
+    if request.method == 'POST':
+        selected_class = request.form['class']
+        selected_subject = request.form['subject']
+        prompt = request.form['prompt']
+
+        # Appeler la fonction ask_qcm_prime
+        qcm_questions = ask_qcm_prime(selected_subject, selected_class, prompt)
+
+        # Retourner les questions QCM à la page HTML
+        return render_template('question_display.html', questions=qcm_questions)
+
     return render_template('create_question.html')
 
 

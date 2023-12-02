@@ -35,8 +35,8 @@ def gpt4_completion_qcm(question, contexte, ancienne_reponse_gpt):
 nb_questions_generees = 3
 
 
-def ask_qcm_prime(subject,level):
-    contexte = f'L objectif est de faire réviser l élève sur des cours de {subject} de classe de {level}. Utilise latex pour les équations mathématiques'
+def ask_qcm_prime(subject,level, prompt):
+    contexte = f'L objectif est de faire réviser l élève sur des cours de {subject} de classe de {level}, en te prenant comme sujet {prompt}. Utilise latex pour les équations mathématiques'
     ReponseString = "[" + gpt4_completion_qcm(
         'Génère un qcm de ' + str(nb_questions_generees) + ' questions avec 1 réponse juste et 3 réponses fausses à partir du contexte fourni. Je veux que tu renvoies le qcm sous la forme suivante : {"question": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules',
         contexte,
@@ -48,7 +48,7 @@ def ask_qcm_prime(subject,level):
         response_json[k]['correct'] -= 1
         response_json[k]['level'] = level
         response_json[k]['subject'] = subject
-        add_answer(response_json[k])
+        #add_answer(response_json[k])
 
     return response_json
 
