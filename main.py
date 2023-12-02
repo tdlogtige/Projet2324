@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 from src.utils.story_manager import *
-from src.utils.QCM import ask_qcm_prime, get_question_from_db
+from src.utils.QCM import get_question_from_db
 
 
 app = Flask(__name__)
@@ -72,7 +72,9 @@ def load_chat():
 def pose_qcm():
     level = request.args.get('level')
     subject = request.args.get('subject')
-    qcm_response = get_question_from_db(level, subject)
+    nb_questions = request.args.get('nb_questions', type=int, default=2)  # Valeur par défaut est 2
+    qcm_response = get_question_from_db(level, subject, nb_questions)
     print(json.dumps(qcm_response))
     return {"answer": qcm_response}
+
 

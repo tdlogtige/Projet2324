@@ -32,19 +32,19 @@ def gpt4_completion_qcm(question, contexte, ancienne_reponse_gpt):
     )["choices"][0]["message"]["content"]
 
 
-nombre_questions = 2
+nb_questions_generees = 3
 
 
 def ask_qcm_prime(subject,level):
     contexte = f'L objectif est de faire réviser l élève sur des cours de {subject} de classe de {level}. Utilise latex pour les équations mathématiques'
     ReponseString = "[" + gpt4_completion_qcm(
-        'Génère un qcm de ' + str(nombre_questions) + ' questions avec 1 réponse juste et 3 réponses fausses à partir du contexte fourni. Je veux que tu renvoies le qcm sous la forme suivante : {"question": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules',
+        'Génère un qcm de ' + str(nb_questions_generees) + ' questions avec 1 réponse juste et 3 réponses fausses à partir du contexte fourni. Je veux que tu renvoies le qcm sous la forme suivante : {"question": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules',
         contexte,
         "",
     ) + "]"
     response_json=json.loads(ReponseString)
 
-    for k in range(nombre_questions):
+    for k in range(nb_questions_generees):
         response_json[k]['correct'] -= 1
         response_json[k]['level'] = level
         response_json[k]['subject'] = subject
@@ -53,9 +53,9 @@ def ask_qcm_prime(subject,level):
     return response_json
 
 
-def get_question_from_db(level, subject):
+def get_question_from_db(level, subject, nb_questions):
     # Récupérer deux questions correspondant au niveau et au sujet
-    questions_cursor = collection.find({"level": subject, "subject": level}).limit(2)
+    questions_cursor = collection.find({"level": subject, "subject": level}).limit(nb_questions)
 
     # Convertir le curseur en liste
     questions = list(questions_cursor)
