@@ -19,8 +19,6 @@ def add_answer(qcm):
     return jsonify({"message": "Document ajouté avec succès"}), 201
 
 
-
-
 def gpt3_completion_qcm(question, contexte, ancienne_reponse_gpt):
     return openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -51,6 +49,7 @@ def ask_qcm_prime(subject,level):
         add_answer(response_json[k])
 
     return response_json
+
 
 def gpt4_completion_perso(level, subject, question):
     role_content = f"Tu es un professeur particulier qui pose des questions de {subject} au niveau {level}. Reste dans le contexte du programme de classe de ton élève. Sois rigoureux avec ton élève."

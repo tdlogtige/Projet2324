@@ -9,8 +9,6 @@ app.secret_key = 'une_cle_secrete'  # Nécessaire pour utiliser les sessions
 
 remember_question = ""
 
-
-
 @app.route("/")
 def template():
     return render_template('index.html')
