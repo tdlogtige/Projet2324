@@ -112,6 +112,22 @@
         <a href="create_question.html" id="professor-mode-btn" class="subject-button">Mode Professeur</a>
 
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const levelSelect = document.getElementById('level');
+            const subjectButtons = document.querySelectorAll('.subject-button');
+
+            subjectButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const level = levelSelect.value;
+                    const subject = this.textContent.trim();
+                    window.location.href = `/page_base.html?level=${level}&subject=${subject}`;
+                });
+            });
+        });
+    </script>
         
 
 </body>
