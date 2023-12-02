@@ -289,12 +289,12 @@ const handleReturnChatButton = async () => {
 //gere qcm et envoie sur mongodb la question posée
 function displayQCM(data) {     //data doit être un dictionnaire
 
-    const { answer, choices, correct } = data;
+    const { question, choices, correct } = data;
     const newQCMButton = document.getElementById("new-qcm-button");
     newQCMButton.classList.add("hidden");
 
     qcmSubmit.classList.remove("hidden");
-    qcmQuestion.innerHTML = answer;
+    qcmQuestion.innerHTML = question;
     qcmChoices.innerHTML = "";
     qcmFeedback.innerHTML = ""; // Réinitialise le feedback
 
