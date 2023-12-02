@@ -68,13 +68,13 @@ def ask_qcm_perso(level, subject):
     ReponseString = gpt4_completion_perso(
         level,
         subject,
-        'Génère un qcm de' + str(nombre_questions) + ' questions avec 1 réponse juste et 3 réponses fausses en respectant bien les consignes du contexte fourni, à savoir sur la matière {subject} et la classe {level}. Je veux que tu renvoies le qcm sous la forme suivante : {"answer": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules '
+        'Génère un qcm de' + str(nombre_questions) + ' questions avec 1 réponse juste et 3 réponses fausses en respectant bien les consignes du contexte fourni, à savoir sur la matière {subject} et la classe {level}. Je veux que tu renvoies le qcm sous la forme suivante : {"answer": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules. Tu renvoies UNIQUEMENT sous le format que je t ai donne, tu ne dis rien d autre. '
 #Pour les équations, tu peux écrire en code latex avec $. N oublies pas que tu dois poser une question en rapport avec la classe et la matière fournies dans le contexte.    
     )
 
     print(ReponseString)
 
-    response_json=json.loads('[' + ReponseString +']')
+    response_json=json.loads('[' + ReponseString + ']')
 
     for k in range(nombre_questions):
         response_json[k]['correct'] -= 1

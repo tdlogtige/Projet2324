@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import os
 from src.utils.story_manager import *
-from src.utils.QCM import ask_qcm_prime
+from src.utils.QCM import ask_qcm_perso
 
 
 app = Flask(__name__)
