@@ -30,13 +30,20 @@ def create_question():
         selected_subject = request.form['subject']
         prompt = request.form['prompt']
 
-        # Appeler la fonction ask_qcm_prime
         qcm_questions = ask_qcm_prime(selected_subject, selected_class, prompt)
 
-        # Retourner les questions QCM à la page HTML
+        # Ajouter un indice à chaque question et à chaque choix
+        for i, question in enumerate(qcm_questions):
+            question['index'] = i
+            for j, choice in enumerate(question['choices']):
+                choice = {'index': j, 'text': choice}
+                question['choices'][j] = choice
+
         return render_template('question_display.html', questions=qcm_questions)
 
     return render_template('create_question.html')
+
+
 
 
 
@@ -93,3 +100,6 @@ def pose_qcm():
     qcm_response = get_question_from_db(level, subject, nb_questions)
     print(json.dumps(qcm_response))
     return {"answer": qcm_response}
+
+
+
