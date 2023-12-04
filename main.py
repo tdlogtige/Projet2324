@@ -23,31 +23,17 @@ def page_base():
     return render_template('page_base.html', level=level, subject=subject)
 
 
-@app.route('/create_question.html', methods=['GET', 'POST'])
+@app.route('/create_question.html')
 def create_question():
     if request.method == 'POST':
         selected_class = request.form['class']
         selected_subject = request.form['subject']
         prompt = request.form['prompt']
 
+        # Appeler la fonction ask_qcm_prime
         qcm_questions = ask_qcm_prime(selected_subject, selected_class, prompt)
 
-        # Ajouter un indice à chaque question et à chaque choix
-        for i, question in enumerate(qcm_questions):
-            question['index'] = i
-            for j, choice in enumerate(question['choices']):
-                choice = {'index': j, 'text': choice}
-                question['choices'][j] = choice
-
-            # Enregistrer la question dans la base de données
-            add_answer({
-                'question': question['question'],
-                'choices': question['choices'],
-                'correct': question['correct'],
-                'level': 'Physique',  # Mettez à jour le niveau et le sujet en conséquence
-                'subject': 'Terminale'
-            })
-
+        # Retourner les questions QCM à la page HTML
         return render_template('question_display.html', questions=qcm_questions)
 
     return render_template('create_question.html')
