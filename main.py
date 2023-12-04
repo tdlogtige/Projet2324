@@ -40,8 +40,6 @@ def create_question():
 
 
 
-
-
 @app.route("/prompt", methods=['POST'])
 def prompt():
     reponse = ask_question_to_pdf(request.form["prompt"])
@@ -95,6 +93,3 @@ def pose_qcm():
     qcm_response = get_question_from_db(level, subject, nb_questions)
     print(json.dumps(qcm_response))
     return {"answer": qcm_response}
-
-
-
