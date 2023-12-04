@@ -111,7 +111,6 @@ def ask_question_to_pdf(question, save=True):
 def ask_qcm():
     return ask_qcm_prime(document)
 
-
 def ask_question_to_pdf_perso(question, level, subject, save=True):
     # Reload the PDF document and context every time a question is asked
     global contexte
@@ -123,4 +122,3 @@ def ask_question_to_pdf_perso(question, level, subject, save=True):
     contexte = [{"role": "system", "content": preprompt}]
 
     return gpt3_completion_perso(level, subject, question, contexte, "")
-
