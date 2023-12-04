@@ -30,60 +30,50 @@ def gpt4_completion_qcm(question, contexte, ancienne_reponse_gpt):
     )["choices"][0]["message"]["content"]
 
 
-nombre_questions = 2
+nb_questions_generees = 3
 
 
-def ask_qcm_prime(subject,level):
-    contexte = f'L objectif est de faire réviser l élève sur des cours de {subject} de classe de {level}. Utilise latex pour les équations mathématiques'
+def ask_qcm_prime(subject,level, prompt):
+    contexte = f'L objectif est de faire réviser l élève sur des cours de {subject} de classe de {level}, en te prenant comme sujet {prompt}. Utilise latex pour les équations mathématiques'
     ReponseString = "[" + gpt4_completion_qcm(
-        'Génère un qcm de ' + str(nombre_questions) + ' questions avec 1 réponse juste et 3 réponses fausses à partir du contexte fourni. Je veux que tu renvoies le qcm sous la forme suivante : {"question": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules',
+        'Génère un qcm de ' + str(nb_questions_generees) + ' questions avec 1 réponse juste et 3 réponses fausses à partir du contexte fourni. Je veux que tu renvoies le qcm sous la forme suivante : {"question": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules',
         contexte,
         "",
     ) + "]"
     response_json=json.loads(ReponseString)
 
-    
-
-    for k in range(nombre_questions):
+    for k in range(nb_questions_generees):
         response_json[k]['correct'] -= 1
         response_json[k]['level'] = level
         response_json[k]['subject'] = subject
-        add_answer(response_json[k])
-
-    return response_json
-
-
-def gpt4_completion_perso(level, subject, question):
-    role_content = f"Tu es un professeur particulier qui pose des questions de {subject} au niveau {level}. Reste dans le contexte du programme de classe de ton élève. Sois rigoureux avec ton élève."
-
-    return openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=[
-            {"role": "system", "content": role_content},
-            #{"role": "assistant", "content": ancienne_reponse_gpt + "en code latex et sans rien dire de latex"},
-            {"role": "user", "content": question},
-        ],
-    )["choices"][0]["message"]["content"]
-
-
-def ask_qcm_perso(level, subject):
-    ReponseString = gpt4_completion_perso(
-        level,
-        subject,
-        'Génère un qcm de' + str(nombre_questions) + ' questions avec 1 réponse juste et 3 réponses fausses en respectant bien les consignes du contexte fourni, à savoir sur la matière {subject} et la classe {level}. Je veux que tu renvoies le qcm sous la forme suivante : {"answer": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules. Tu renvoies UNIQUEMENT sous le format que je t ai donne, tu ne dis rien d autre. '
-#Pour les équations, tu peux écrire en code latex avec $. N oublies pas que tu dois poser une question en rapport avec la classe et la matière fournies dans le contexte.    
-    )
-
-    print(ReponseString)
-
-    response_json=json.loads('[' + ReponseString + ']')
-
-    for k in range(nombre_questions):
-        response_json[k]['correct'] -= 1
         #add_answer(response_json[k])
 
     return response_json
 
+
+def get_question_from_db(level, subject, nb_questions):
+    # Récupérer deux questions correspondant au niveau et au sujet
+    questions_cursor = collection.find({"level": subject, "subject": level}).limit(nb_questions)
+
+    # Convertir le curseur en liste
+    questions = list(questions_cursor)
+
+    # Vérifier si des questions ont été trouvées
+    if questions:
+        formatted_questions = []
+        for question_data in questions:
+            formatted_question = {
+                "question": question_data["question"],
+                "choices": question_data["choices"],
+                "correct": question_data["correct"]
+            }
+            formatted_questions.append(formatted_question)
+        return formatted_questions
+    else:
+        return {"error": "Aucune question trouvée pour ce niveau et sujet"}
+
+
+      
 class QCM:
 
     def __init__(self, preprompt):
@@ -91,7 +81,7 @@ class QCM:
 
     def generate_new(self):
         ReponseString = openai.ChatCompletion.create(
-        model="gpt-4",
+        model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": self._preprompt},
             {"role": "user", "content": 'Génère un qcm de ' + str(nombre_questions) + ' questions avec 1 réponse juste et 3 réponses fausses à partir du contexte fourni. Je veux que tu renvoies le qcm sous la forme suivante : {"answer": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules, en code latex avec $'},

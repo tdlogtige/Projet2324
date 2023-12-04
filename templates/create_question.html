@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Création de Question</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_create.css') }}">
+</head>
+<body>
+    <div class="main-container">
+        <h2>Création de Question pour Professeurs</h2>
+        <form action="{{ url_for('create_question') }}" method="post">
+            <div class="form-group">
+                <label for="class-select">Classe :</label>
+                <select id="class-select" name="class">
+                    <option value="CP">CP</option>
+                    <option value="CE1">CE1</option>
+                    <option value="CE2">CE2</option>
+                    <option value="CM1">CM1</option>
+                    <option value="CM2">CM2</option>
+                    <option value="6ème">6ème</option>
+                    <option value="5ème">5ème</option>
+                    <option value="4ème">4ème</option>
+                    <option value="3ème">3ème</option>
+                    <option value="Seconde">Seconde</option>
+                    <option value="Première">Première</option>
+                    <option value="Terminale">Terminale</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="subject-select">Matière :</label>
+                <select id="subject-select" name="subject">
+                    <option value="mathematiques">Mathématiques</option>
+                    <option value="physique">Physique</option>
+                    <option value="chimie">Chimie</option>
+                    <option value="francais">Français</option>
+                    <option value="anglais">Anglais</option>
+                    <option value="histoire">Histoire</option>
+                    <option value="geographie">Géographie</option>
+                    <option value="svt">SVT</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="prompt-input">Sujet de la question :</label>
+                <input type="text" id="prompt-input" name="prompt" placeholder="Entrez le sujet ici">
+            </div>
+            <button type="submit" class="submit-button">Générer Question</button>
+        </form>
+    </div>
+</body>
+</html>
