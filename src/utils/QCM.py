@@ -45,8 +45,29 @@ def ask_qcm_prime(document):
     ) + "]"
     response_json=json.loads(ReponseString)
 
+    
+
     for k in range(nombre_questions):
         response_json[k]['correct'] -= 1
         #add_answer(response_json[k])
 
     return response_json
+
+class QCM:
+
+    def __init__(self, preprompt):
+        self._preprompt = preprompt
+
+    def generate_new(self):
+        ReponseString = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": self._preprompt},
+            {"role": "user", "content": 'Génère un qcm de ' + str(nombre_questions) + ' questions avec 1 réponse juste et 3 réponses fausses à partir du contexte fourni. Je veux que tu renvoies le qcm sous la forme suivante : {"answer": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules, en code latex avec $'},
+            {"role": "user", "content": question},
+            ],
+        )["choices"][0]["message"]["content"]
+        self._content=json.loads(ReponseString)
+    
+    def getcontent(self):
+        return self._content

@@ -110,3 +110,4 @@ def ask_question_to_pdf(question, save=True):
 
 def ask_qcm():
     return ask_qcm_prime(document)
+    

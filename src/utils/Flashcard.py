@@ -11,7 +11,7 @@ class Flashcard:
         messages=[{"role": "system", "content": self._preprompt},{"role": "user", "content":"Génère une question sur le cours, différente de celles-ci : "+prec }].copy(),
     )["choices"][0]["message"]["content"]
         self._question=res
-        self._answer= openai.ChatCompletion.create(
+        self._answer=openai.ChatCompletion.create(
         model="gpt-4",
         messages=[{"role": "system", "content": self._preprompt},{"role": "user", "content":res }].copy(),
     )["choices"][0]["message"]["content"]
