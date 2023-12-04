@@ -4,15 +4,13 @@
 <head>
     <title>Copain de révision</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 
     <script type="text/javascript" async
     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </head>
-
 
 <body>
     <main class="main-container">
@@ -33,7 +31,7 @@
                 <!-- Les choix seront injectés ici par le JavaScript -->
             </ul>
             <button id="qcm-submit">Valider</button>
-            
+
             <div id="student-feedback">
                 <div id="opinion">
                     <button id="thumb-up" class="feedback-button">👍</button>
@@ -50,7 +48,6 @@
                     </select>
                 </div>
             </div>
-            
 
             <div id="qcm-feedback"></div>
             <button id="new-qcm-button" class="hidden">Question Suivante</button>
@@ -59,11 +56,8 @@
         </section>
 
         <form id="qcm-form" class="prompt-container">
-
             <button type="button" class="button" id="return-chat-button">Retour au chat</button>
-
             <button type="button" class="button" id="new-qcm-test-button">Nouveau QCM</button>
-
         </form>
 
         <script>
@@ -71,41 +65,58 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const level = urlParams.get('level');
                 const subject = urlParams.get('subject');
-            
+
                 const qcmButton = document.getElementById('qcm-test-button');
                 if (qcmButton) {
                     qcmButton.addEventListener('click', function() {
                         fetch(`/qcm?level=${level}&subject=${subject}`)
                             .then(response => response.json())
                             .then(data => {
-                                // Ici, vous pouvez traiter la réponse et afficher le QCM
-                                // Par exemple, en mettant à jour les éléments du DOM dans 'qcm-container'
-                                console.log(data); // Afficher les données pour déboguer
+                                // traitement réponse affichage qcm
+                                const qcmContainer = document.getElementById('qcm-container');
+
+                                // Supprimer le contenu existant du conteneur
+                                qcmContainer.innerHTML = '';
+
+                                // Parcourir les questions dans les données
+                                data.questions.forEach(question => {
+                                    // Créer un élément de question
+                                    const questionElement = document.createElement('div');
+                                    questionElement.textContent = question.text;
+
+                                    // Ajouter les options de réponse
+                                    question.options.forEach(option => {
+                                        const optionElement = document.createElement('div');
+                                        optionElement.textContent = option;
+
+                                        // Ajouter un gestionnaire d'événements pour la sélection de l'option
+                                        optionElement.addEventListener('click', function() {
+                                            // Ajouter votre logique de traitement de la sélection de l'option ici
+                                            console.log('Option sélectionnée:', option);
+                                        });
+
+                                        questionElement.appendChild(optionElement);
+                                    });
+
+                                    // Ajouter la question au conteneur
+                                    qcmContainer.appendChild(questionElement);
+                                });
                             })
                             .catch(error => console.error('Error:', error));
                     });
                 }
             });
         </script>
-            
-            
-
 
         <form id="prompt-form" class="prompt-container">
             <label for="prompt" class="prompt-label">Message</label>
 
             <input type="text" id="prompt" name="prompt" class="prompt-input" autocomplete="off" />
 
-
-
-
-
             <button type="submit" class="button" id="submit-button">Envoyer</button>
-
             <button type="button" class="button" id="question-button">
                 Pose-moi une question !
             </button>
-
             <button type="button" class="button" id="qcm-test-button">QCM</button>
 
             <input type="file" id="pdf-input" accept=".pdf" style="display:none" />
@@ -119,6 +130,7 @@
                 🌙
             </button>
         </form>
+
         <script src="{{ url_for('static', filename='prompt.js') }}"></script>
     </main>
 
