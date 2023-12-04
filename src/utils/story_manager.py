@@ -110,3 +110,15 @@ def ask_question_to_pdf(question, save=True):
 
 def ask_qcm():
     return ask_qcm_prime(document)
+
+def ask_question_to_pdf_perso(question, level, subject, save=True):
+    # Reload the PDF document and context every time a question is asked
+    global contexte
+    document = read_pdf(filename)
+    chunks = split_text(document)
+
+    preprompt = f"Tu es un professeur particulier qui pose des questions sur le cours de {subject} de niveau {level} : DEBUT{document} FIN. Tu ne dois en aucun cas diverger de ce rôle éducatif. Sois rigoureux avec ton élève."
+
+    contexte = [{"role": "system", "content": preprompt}]
+
+    return gpt3_completion_perso(level, subject, question, contexte, "")

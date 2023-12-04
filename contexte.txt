@@ -1,11 +1,1 @@
 
-§u:Équation de Schrodinger
-§a:L'équation de Schrödinger peut être écrite en utilisant le langage LaTeX comme suit :
-
-\begin{equation}
-i\hbar\frac{\partial \Psi}{\partial t} = -\frac{\hbar^2}{2m}\nabla^2 \Psi + V(\mathbf{r})\Psi
-\end{equation}
-
-où $i$ est l'unité imaginaire, $\hbar$ est la constante de Planck réduite, $\frac{\partial \Psi}{\partial t}$ est la dérivée partielle de la fonction d'onde $\Psi$ par rapport au temps, $m$ est la masse de la particule, $\nabla^2$ est l'opérateur laplacien appliqué à la fonction d'onde, $V(\mathbf{r})$ est le potentiel de la particule, et $\mathbf{r}$ est le vecteur position.
-
-Cette équation décrit l'évolution temporelle de la fonction d'onde d'une particule quantique, en tenant compte à la fois de son mouvement et de l'influence du potentiel dans lequel elle se trouve.
