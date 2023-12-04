@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Affichage des Questions QCM</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style_create.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_valider.css') }}">
     <script type="text/javascript" async
     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <script type="text/javascript" async
@@ -47,12 +47,16 @@ MathJax.Hub.Config({
                 <!-- Sélection de la réponse correcte -->
                 <label for="correct_{{ question.index }}"><strong>Réponse Correcte :</strong></label>
                 <input type="number" id="correct_{{ question.index }}" name="correct_{{ question.index }}" value="{{ question.correct }}" min="0" max="{{ question.choices|length - 1 }}">
+                
+                <!-- Bouton Valider la question -->
+                <button id="validate_question_{{ question.index }}" name="validate_question_{{ question.index }}" type="button">Valider la question</button>
             </div>
         {% endfor %}
         
         </div>
     </div>
 </body>
+
 
 
 

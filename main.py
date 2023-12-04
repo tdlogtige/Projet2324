@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 from src.utils.story_manager import *
-from src.utils.QCM import get_question_from_db
+from src.utils.QCM import get_question_from_db, add_answer
 
 
 app = Flask(__name__)
@@ -38,6 +38,15 @@ def create_question():
             for j, choice in enumerate(question['choices']):
                 choice = {'index': j, 'text': choice}
                 question['choices'][j] = choice
+
+            # Enregistrer la question dans la base de données
+            add_answer({
+                'question': question['question'],
+                'choices': question['choices'],
+                'correct': question['correct'],
+                'level': 'Physique',  # Mettez à jour le niveau et le sujet en conséquence
+                'subject': 'Terminale'
+            })
 
         return render_template('question_display.html', questions=qcm_questions)
 

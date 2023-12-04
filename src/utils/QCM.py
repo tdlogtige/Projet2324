@@ -14,16 +14,16 @@ def parse_json(data):
 collection = database.answer
 
 
-def add_answer(qcm):
-    collection.insert_one(parse_json(qcm))
-    return jsonify({"message": "Document ajouté avec succès"}), 201
+def add_answer(question):
+    collection.insert_one(question)
+    return jsonify({"message": "Question ajoutée avec succès"}), 201
 
 
 
 
 def gpt4_completion_qcm(question, contexte, ancienne_reponse_gpt):
     return openai.ChatCompletion.create(
-        model="gpt-4",
+        model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": contexte},
             {"role": "assistant", "content": ancienne_reponse_gpt+"en code latex et sans rien dire de latex"},
