@@ -92,3 +92,4 @@ class QCM:
     
     def getcontent(self):
         return self._content
+            
