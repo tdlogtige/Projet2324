@@ -1,14 +1,14 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from flask import Flask, render_template, request, jsonify
 import os
 from src.utils.story_manager import *
-from src.utils.QCM import get_question_from_db, ask_qcm_prime
-
+from src.utils.QCM import get_question_from_db
 
 
 app = Flask(__name__)
-app.secret_key = 'une_cle_secrete'  # Nécessaire pour utiliser les sessions
 
 remember_question = ""
+
+
 
 @app.route("/")
 def template():
@@ -19,11 +19,7 @@ def template():
 def page_base():
     level = request.args.get('level')
     subject = request.args.get('subject')
-    
-    # Stocker les paramètres dans la session pour une utilisation ultérieure
-    session['level'] = level
-    session['subject'] = subject
-
+    # Ici, vous pouvez ajouter une logique pour adapter le contenu en fonction de level et subject
     return render_template('page_base.html', level=level, subject=subject)
 
 
@@ -53,28 +49,22 @@ def create_question():
 
 @app.route("/prompt", methods=['POST'])
 def prompt():
-    level = request.args.get('level', 'defaultLevel')
-    subject = request.args.get('subject', 'defaultSubject')
-    reponse = ask_question_to_pdf_perso(request.form["prompt"], level, subject)
+    reponse = ask_question_to_pdf(request.form["prompt"])
     return {"answer": reponse}
-
 
 
 @app.route("/question", methods=['GET'])
 def pose_question():
-    level = request.args.get('level', 'defaultLevel')
-    subject = request.args.get('subject', 'defaultSubject')
-    return {"answer": ask_question_to_pdf_perso("Pose moi une question sur un détail du cours pour mon niveau et ce sujet", False, level, subject)}
+    return {"answer": ask_question_to_pdf("Pose moi une question sur un détail du cours", False)}
 
 
 @app.route("/answer", methods=['POST'])
 def reponse_question():
-    level = request.args.get('level', 'defaultLevel')
-    subject = request.args.get('subject', 'defaultSubject')
-    reponse = ask_question_to_pdf_perso("Ma réponse est : " + request.form["prompt"] +
-                                  ". Dis si elle est juste et le cas échéant donne la réponse en pas plus de 3 phrases.", level, subject)
+    reponse = ask_question_to_pdf("Ma réponse est : " +
+                                  request.form["prompt"] +
+                                  ". Dis si elle est juste et le cas échéant" +
+                                  " donne la réponse en pas plus de 3 phrases.")
     return {"answer": reponse}
-
 
 @app.route('/upload-pdf', methods=['POST'])
 def upload_pdf():
@@ -110,3 +100,6 @@ def pose_qcm():
     qcm_response = get_question_from_db(level, subject, nb_questions)
     print(json.dumps(qcm_response))
     return {"answer": qcm_response}
+
+
+
