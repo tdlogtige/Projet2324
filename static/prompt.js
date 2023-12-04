@@ -239,7 +239,7 @@ pdfInput.addEventListener('change', async () => {
 let score = 0;
 let questionIndex = 0;
 let questionList = [];
-let nombreQuestions = 3;
+let nombreQuestions = 2;
 
 const handleQCMTestClick = async () => {
     while (messagesContainer.firstChild) {
