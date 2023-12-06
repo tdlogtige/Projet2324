@@ -48,7 +48,6 @@ def ask_qcm_prime(subject,level, prompt):
         response_json[k]['correct'] -= 1
         response_json[k]['level'] = level
         response_json[k]['subject'] = subject
-        #add_answer(response_json[k])
 
     return response_json
 

@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 from src.utils.story_manager import *
-from src.utils.QCM import get_question_from_db
+from src.utils.QCM import get_question_from_db, add_answer, ask_qcm_prime
 
 
 app = Flask(__name__)
@@ -44,7 +44,14 @@ def create_question():
     return render_template('create_question.html')
 
 
+@app.route('/add_question', methods=['POST'])
+def add_question():
+    
+    question_data = request.json
 
+    add_answer(question_data)
+
+    return jsonify({'status': 'success'})
 
 
 @app.route("/prompt", methods=['POST'])
