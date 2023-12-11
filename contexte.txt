@@ -9,3 +9,11 @@ i\hbar\frac{\partial \Psi}{\partial t} = -\frac{\hbar^2}{2m}\nabla^2 \Psi + V(\m
 où $i$ est l'unité imaginaire, $\hbar$ est la constante de Planck réduite, $\frac{\partial \Psi}{\partial t}$ est la dérivée partielle de la fonction d'onde $\Psi$ par rapport au temps, $m$ est la masse de la particule, $\nabla^2$ est l'opérateur laplacien appliqué à la fonction d'onde, $V(\mathbf{r})$ est le potentiel de la particule, et $\mathbf{r}$ est le vecteur position.
 
 Cette équation décrit l'évolution temporelle de la fonction d'onde d'une particule quantique, en tenant compte à la fois de son mouvement et de l'influence du potentiel dans lequel elle se trouve.
+§u:équation de Schrodinger
+§a:L'équation de Schrödinger peut être écrite en utilisant le langage LaTeX comme suit :
+
+\begin{equation}
+i\hbar\frac{\partial}{\partial t}\Psi(\mathbf{r},t) = \left(-\frac{\hbar^2}{2m}\nabla^2 + V(\mathbf{r},t)\right)\Psi(\mathbf{r},t)
+\end{equation}
+
+où $\Psi(\mathbf{r},t)$ est la fonction d'onde, $\mathbf{r}$ est la position, $t$ est le temps, $\hbar$ est la constante de Planck réduite, $m$ est la masse de la particule et $V(\mathbf{r},t)$ est le potentiel.
