@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 from src.utils.story_manager import *
-from src.utils.QCM import get_question_from_db, add_answer, ask_qcm_prime
+from src.utils.QCM import get_question_from_db, add_answer, ask_qcm_prime, database
 
 
 app = Flask(__name__)
@@ -28,9 +28,10 @@ def create_question():
     if request.method == 'POST':
         selected_class = request.form['class']
         selected_subject = request.form['subject']
+        selected_chapter = request.form['chapter']
         prompt = request.form['prompt']
 
-        qcm_questions = ask_qcm_prime(selected_subject, selected_class, prompt)
+        qcm_questions = ask_qcm_prime(selected_subject, selected_class, selected_chapter, prompt)
 
         # Ajouter un indice à chaque question et à chaque choix
         for i, question in enumerate(qcm_questions):
@@ -39,9 +40,44 @@ def create_question():
                 choice = {'index': j, 'text': choice}
                 question['choices'][j] = choice
 
-        return render_template('question_display.html', questions=qcm_questions, selected_class=selected_class, selected_subject=selected_subject)
+        return render_template('question_display.html', questions=qcm_questions, selected_class=selected_class, selected_subject=selected_subject, selected_chapter=selected_chapter)
 
     return render_template('create_question.html')
+
+
+@app.route('/get_chapters', methods=['GET'])
+def get_chapters():
+    selected_class = request.args.get('class')
+    selected_subject = request.args.get('subject')
+
+    # Collection chapitres de Mongo
+    collection = database.chapitres
+
+    # Récupérer les chapitres pour la classe et la matière sélectionnées
+    document = collection.find_one({"classe": selected_class})
+    if document and selected_subject in document['matières']:
+        chapters = document['matières'][selected_subject]
+    else:
+        chapters = []
+
+    return jsonify(chapters)
+
+@app.route('/add_chapter', methods=['POST'])
+def add_chapter():
+    data = request.json
+    selected_class = data['class']
+    selected_subject = data['subject']
+    new_chapter = data['new_chapter']
+
+    # Collection chapitres de Mongo
+    collection = database.chapitres
+
+    # Ajouter le nouveau chapitre à la base de données
+    query = {"classe": selected_class}
+    update = {"$addToSet": {f"matières.{selected_subject}": new_chapter}}
+    collection.update_one(query, update)
+
+    return jsonify({"success": True})
 
 
 @app.route('/add_question', methods=['POST'])

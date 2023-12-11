@@ -73,3 +73,25 @@ h2 {
 .question ul {
     padding-left: 20px;
 }
+
+#new-chapter-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px; /* Ajouter un peu d'espace entre l'input et le bouton */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#add-chapter-button {
+    background-color: #007bff; /* Une couleur bleue par exemple */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+#add-chapter-button:hover {
+    background-color: #0069d9; /* Une nuance légèrement plus foncée pour le survol */
+}

@@ -14,9 +14,10 @@
 <body>
     <div id="class-info" data-selected-class="{{ selected_class }}" style="display: none;"></div>
     <div id="subject-info" data-selected-subject="{{ selected_subject }}" style="display: none;"></div>
+    <div id="chapter-info" data-selected-chapter="{{ selected_chapter }}" style="display: none;"></div>
 
     <div class="main-container">
-        <h2>QCM de niveau {{ selected_class }} en {{ selected_subject }}</h2>
+        <h2>QCM de niveau {{ selected_class }} en {{ selected_subject }} sur le chapitre {{ selected_chapter }}</h2>
         <div class="questions-container">
             {% for question in questions %}
             <div class="question" id="question_container_{{ question.index }}">
@@ -62,13 +63,15 @@
             // Récupérer les valeurs de selected_class et selected_subject
             var selectedClass = document.getElementById('class-info').dataset.selectedClass;
             var selectedSubject = document.getElementById('subject-info').dataset.selectedSubject;
+            var selectedChapter = document.getElementById('chapter-info').dataset.selectedChapter; 
 
             var questionData = {
                 question: questionText,
                 choices: choices,
                 correct: correctAnswer,
                 level: selectedClass,
-                subject : selectedSubject
+                subject : selectedSubject,
+                chapter: selectedChapter
             };
 
             // Message de débogage
