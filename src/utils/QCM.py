@@ -3,8 +3,6 @@ import json
 from src.utils.init_db import db as database
 from flask import jsonify
 from bson import json_util
-import json
-
 
 
 def parse_json(data):
@@ -17,8 +15,6 @@ collection = database.answer
 def add_answer(qcm):
     collection.insert_one(parse_json(qcm))
     return jsonify({"message": "Document ajouté avec succès"}), 201
-
-
 
 
 def gpt4_completion_qcm(question, contexte, ancienne_reponse_gpt):
