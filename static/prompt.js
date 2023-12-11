@@ -275,12 +275,12 @@ const handleReturnChatButton = async () => {
 
 function displayQCM(data) {     //data doit être un dictionnaire
 
-    const { question, choices, correct } = data;
+    const { answer, choices, correct, id } = data;
     const newQCMButton = document.getElementById("new-qcm-button");
     newQCMButton.classList.add("hidden");
 
     qcmSubmit.classList.remove("hidden");
-    qcmQuestion.innerHTML = question;
+    qcmQuestion.innerHTML = answer;
     qcmChoices.innerHTML = "";
     qcmFeedback.innerHTML = ""; // Réinitialise le feedback
 
@@ -324,6 +324,14 @@ function displayQCM(data) {     //data doit être un dictionnaire
             newQCMButton.classList.add("hidden");  // Cache le bouton
             qcmSubmit.classList.remove("hidden");
         }
+    };
+
+    thumbUpButton.onclick = function () {
+        update_student_feedback(id, "thumb-up")
+    };
+    
+    thumbDownButton.onclick = function () {
+        update_student_feedback(id, "thumb-down")
     };
 
     newQCMButton.addEventListener("click", handleNewQCMClick);
