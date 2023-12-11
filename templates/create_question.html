@@ -39,6 +39,14 @@
                     <option value="SVT">SVT</option>
                 </select>
             </div>
+
+            <div class="form-group">
+                <label for="chapter-select">Chapitre :</label>
+                <select id="chapter-select" name="chapter">
+                    <!-- Les options seront chargées dynamiquement avec JavaScript -->
+                </select>
+            </div>
+            
             <div class="form-group">
                 <label for="prompt-input">Sujet de la question :</label>
                 <input type="text" id="prompt-input" name="prompt" placeholder="Entrez le sujet ici">
@@ -46,5 +54,39 @@
             <button type="submit" class="submit-button">Générer Question</button>
         </form>
     </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var classSelect = document.getElementById('class-select');
+            var subjectSelect = document.getElementById('subject-select');
+            var chapterSelect = document.getElementById('chapter-select');
+    
+            function updateChapters() {
+                var selectedClass = classSelect.value;
+                var selectedSubject = subjectSelect.value;
+    
+                // Effectuer une requête AJAX à votre serveur pour obtenir les chapitres
+                fetch('/get_chapters?class=' + selectedClass + '&subject=' + selectedSubject)
+                    .then(response => response.json())
+                    .then(data => {
+                        chapterSelect.innerHTML = ''; // Vider les options existantes
+                        data.chapters.forEach(function(chapter) {
+                            var option = document.createElement('option');
+                            option.value = chapter;
+                            option.textContent = chapter;
+                            chapterSelect.appendChild(option);
+                        });
+                    });
+            }
+    
+            classSelect.addEventListener('change', updateChapters);
+            subjectSelect.addEventListener('change', updateChapters);
+    
+            // Charger initialement les chapitres
+            updateChapters();
+        });
+    </script>
+    
 </body>
 </html>
