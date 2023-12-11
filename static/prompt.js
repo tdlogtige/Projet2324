@@ -12,6 +12,11 @@ const endQCMButton = document.getElementById("end-qcm-button");
 const returnChatButton = document.getElementById("return-chat-button");
 const qcmForm = document.getElementById("qcm-form");
 const newQCMTestButton = document.getElementById("new-qcm-test-button");
+const thumbUpButton = document.getElementById('thumb-up');
+const thumbDownButton = document.getElementById('thumb-down');
+const difficultySelect = document.getElementById('difficulty-level');
+const newQCMButton = document.getElementById('new-qcm-button');
+const finQCMButton = document.getElementById('fin-qcm-button');
 
 var body = document.getElementsByTagName('body')[0];
 var darkmode = false;
