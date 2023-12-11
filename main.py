@@ -39,7 +39,7 @@ def create_question():
                 choice = {'index': j, 'text': choice}
                 question['choices'][j] = choice
 
-        return render_template('question_display.html', questions=qcm_questions)
+        return render_template('question_display.html', questions=qcm_questions, selected_class=selected_class, selected_subject=selected_subject)
 
     return render_template('create_question.html')
 

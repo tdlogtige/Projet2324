@@ -12,8 +12,11 @@
 
 
 <body>
+    <div id="class-info" data-selected-class="{{ selected_class }}" style="display: none;"></div>
+    <div id="subject-info" data-selected-subject="{{ selected_subject }}" style="display: none;"></div>
+
     <div class="main-container">
-        <h2>Questions QCM Générées</h2>
+        <h2>QCM de niveau {{ selected_class }} en {{ selected_subject }}</h2>
         <div class="questions-container">
             {% for question in questions %}
             <div class="question" id="question_container_{{ question.index }}">
@@ -50,23 +53,28 @@
     <script>
         function validateQuestion(index) {
             var questionText = document.getElementById('question_' + index).value;
-            var correctAnswer = document.getElementById('correct_' + index).value;
+            var correctAnswer = parseInt(document.getElementById('correct_' + index).value, 10);
             var choices = [];
             for (var i = 0; i < 4; i++) {
                 choices.push(document.getElementById('choice_' + index + '_' + i).value);
             }
 
+            // Récupérer les valeurs de selected_class et selected_subject
+            var selectedClass = document.getElementById('class-info').dataset.selectedClass;
+            var selectedSubject = document.getElementById('subject-info').dataset.selectedSubject;
+
             var questionData = {
                 question: questionText,
                 choices: choices,
-                correct: correctAnswer
-                // Vous pouvez ajouter d'autres champs si nécessaire
+                correct: correctAnswer,
+                level: selectedClass,
+                subject : selectedSubject
             };
 
             // Message de débogage
             console.log('Données de la question validée:', questionData);
 
-            // Maintenant, envoyez ces données à votre serveur Flask
+            // Envoi des données à votre serveur Flask
             sendQuestionDataToServer(questionData, index);
         }
 
