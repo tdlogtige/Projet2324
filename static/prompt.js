@@ -1,59 +1,22 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const promptForm = document.getElementById("prompt-form");
-    const submitButton = document.getElementById("submit-button");
-    const questionButton = document.getElementById("question-button");
-    const darkmodeButton = document.getElementById("darkmode-button");
-    const messagesContainer = document.getElementById("messages-container");
-    const qcmContainer = document.getElementById("qcm-container");
-    const qcmQuestion = document.getElementById("qcm-question");
-    const qcmChoices = document.getElementById("qcm-choices");
-    const qcmSubmit = document.getElementById("qcm-submit");
-    const qcmFeedback = document.getElementById("qcm-feedback");
-    const endQCMButton = document.getElementById("end-qcm-button");
-    const returnChatButton = document.getElementById("return-chat-button");
-    const qcmForm = document.getElementById("qcm-form");
-    const newQCMTestButton = document.getElementById("new-qcm-test-button");
-    const levelSelect = document.getElementById('level');
-    const subjectButtons = document.querySelectorAll('.subject-button');
+const promptForm = document.getElementById("prompt-form");
+const submitButton = document.getElementById("submit-button");
+const questionButton = document.getElementById("question-button");
+const darkmodeButton = document.getElementById("darkmode-button");
+const messagesContainer = document.getElementById("messages-container");
+const qcmContainer = document.getElementById("qcm-container");
+const qcmQuestion = document.getElementById("qcm-question");
+const qcmChoices = document.getElementById("qcm-choices");
+const qcmSubmit = document.getElementById("qcm-submit");
+const qcmFeedback = document.getElementById("qcm-feedback");
+const endQCMButton = document.getElementById("end-qcm-button");
+const returnChatButton = document.getElementById("return-chat-button");
+const qcmForm = document.getElementById("qcm-form");
+const newQCMTestButton = document.getElementById("new-qcm-test-button");
 
-
-    var body = document.getElementsByTagName('body')[0];
-    var darkmode = false;
-    var matin = new Date(2023, 0, 0, 8, 0, 0);
-    var soir = new Date(2023, 0, 0, 20, 30, 0);
-
-    qcmForm.style.display = "none";
-
-  
-    subjectButtons.forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
-            const level = levelSelect.value;
-            const subject = this.textContent.trim();
-            const redirectURL = `/page_base.html?level=${encodeURIComponent(level)}&subject=${encodeURIComponent(subject)}`;
-            window.location.href = redirectURL;
-        });
-    });
-
-    questionButton.addEventListener('click', async function(event) {
-        const level = levelSelect.value;
-        const subject = document.querySelector('.subject-button.selected').textContent.trim();
-        appendAIMessage(async () => {
-            const response = await fetch(`/question?level=${encodeURIComponent(level)}&subject=${encodeURIComponent(subject)}`, {
-                method: 'GET',
-            });
-            const result = await response.json();
-            const question = result.answer;
-
-            questionButton.dataset.question = question;
-            questionButton.classList.add('hidden');
-            submitButton.innerHTML = 'Répondre à la question';
-            return question;
-        });
-    });
-
-
-
+var body = document.getElementsByTagName('body')[0];
+var darkmode = false;
+var matin = new Date(2023, 0, 0, 8, 0, 0);
+var soir = new Date(2023, 0, 0, 20, 30, 0);
 
 qcmForm.style.display = "none";
 
@@ -241,6 +204,15 @@ let questionIndex = 0;
 let questionList = [];
 let nombreQuestions = 2;
 
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const qcmButton = document.getElementById('qcm-test-button');
+    if (qcmButton) {
+        qcmButton.addEventListener('click', handleQCMTestClick);
+    }
+});
+
 const handleQCMTestClick = async () => {
     while (messagesContainer.firstChild) {
         messagesContainer.removeChild(messagesContainer.lastChild);
@@ -248,15 +220,25 @@ const handleQCMTestClick = async () => {
     appendSimpleAIMessage("Mode Test");
     promptForm.style.display = "none";
     qcmForm.style.display = "none";
-    const response = await fetch("/qcm", { method: "GET" });
-    const result = await response.json();
-    questionList = result.answer;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const level = urlParams.get('level');
+    const subject = urlParams.get('subject');
+
+    const response = await fetch(`/qcm?level=${level}&subject=${subject}`, { method: "GET" });
+    const data = await response.json();
+
+    // Traitement des données reçues et mise à jour de l'interface utilisateur
+    //console.log(data); // Afficher les données pour déboguer
+    questionList = data.answer;
     qcmContainer.classList.remove("hidden");
     handleNewQCMClick();
 }
 
-const qcmTestButton = document.getElementById("qcm-test-button");
-qcmTestButton.addEventListener("click", handleQCMTestClick);
+
+// Suppression de l'événement listener redondant sur 'qcm-test-button'
+// car il est déjà défini dans le premier morceau de code.
+
 
 
 const handleNewQCMClick = async () => {
@@ -286,7 +268,6 @@ const handleReturnChatButton = async () => {
     appendSimpleAIMessage("Je suis ton AIssistant de cours personnel ! Pose-moi une question sur le cours et je te répondrai.");
 }
 
-//gere qcm et envoie sur mongodb la question posée
 function displayQCM(data) {     //data doit être un dictionnaire
 
     const { question, choices, correct } = data;
@@ -344,7 +325,6 @@ function displayQCM(data) {     //data doit être un dictionnaire
 
 }
 
-
 const loadChat = async () => {
     const response = await fetch("/load-chat", {
         method: "GET"
@@ -364,4 +344,3 @@ const loadChat = async () => {
 }
 
 loadChat();
-});
