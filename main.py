@@ -28,9 +28,10 @@ def create_question():
     if request.method == 'POST':
         selected_class = request.form['class']
         selected_subject = request.form['subject']
+        selected_chapter = request.form['chapter']
         prompt = request.form['prompt']
 
-        qcm_questions = ask_qcm_prime(selected_subject, selected_class, prompt)
+        qcm_questions = ask_qcm_prime(selected_subject, selected_class, selected_chapter, prompt)
 
         # Ajouter un indice à chaque question et à chaque choix
         for i, question in enumerate(qcm_questions):
@@ -39,7 +40,7 @@ def create_question():
                 choice = {'index': j, 'text': choice}
                 question['choices'][j] = choice
 
-        return render_template('question_display.html', questions=qcm_questions, selected_class=selected_class, selected_subject=selected_subject)
+        return render_template('question_display.html', questions=qcm_questions, selected_class=selected_class, selected_subject=selected_subject, selected_chapter=selected_chapter)
 
     return render_template('create_question.html')
 
