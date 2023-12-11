@@ -43,6 +43,17 @@ def create_question():
 
     return render_template('create_question.html')
 
+@app.route('/get_chapters')
+def get_chapters():
+    selected_class = request.args.get('class')
+    selected_subject = request.args.get('subject')
+
+    # Récupérez les chapitres depuis MongoDB en fonction de la classe et de la matière
+    chapters = [...]  # Remplacez ceci par le code de récupération des données
+
+    return jsonify({'chapters': chapters})
+
+
 
 @app.route('/add_question', methods=['POST'])
 def add_question():
