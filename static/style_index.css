@@ -1,0 +1,118 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+}
+.header {
+    background-color: #af2a99;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+.header-title {
+    font-size: 24px;
+}
+.main-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.greeting {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.choice-dropdown {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.choice-dropdown select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.subjects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.subject-button {
+    background-color: #ccb800;
+    color: #fff;
+    padding: 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: calc(33.33% - 10px);
+    text-align: center;
+}
+.subject-button:hover {
+    background-color: #717900;
+}
+
+.action-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+}
+
+#professor-mode-btn {
+    background-color: #ed0e0e;
+    padding: 5px 10px;
+    font-size: 12px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+}
+
+
+.subject-button-selected {
+    background-color: #4CAF50; /* Choisissez la couleur que vous préférez */
+}
+
+.choice-dropdown {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.choice-dropdown label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.choice-dropdown select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.choice-dropdown select:focus {
+    outline: none;
+    border-color: #af2a99;
+    box-shadow: 0 0 5px rgba(175, 42, 153, 0.5);
+}
+
+/* Style pour les options dans les menus déroulants */
+.choice-dropdown option {
+    padding: 10px;
+    background: white;
+    border-bottom: 1px solid #eee;
+}

@@ -224,8 +224,10 @@ const handleQCMTestClick = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const level = urlParams.get('level');
     const subject = urlParams.get('subject');
+    const chapter = urlParams.get('chapter');
 
-    const response = await fetch(`/qcm?level=${level}&subject=${subject}`, { method: "GET" });
+
+    const response = await fetch(`/qcm?level=${level}&subject=${subject}&chapter=${chapter}`, { method: "GET" });
     const data = await response.json();
 
     // Traitement des données reçues et mise à jour de l'interface utilisateur

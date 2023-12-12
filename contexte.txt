@@ -17,3 +17,31 @@ i\hbar\frac{\partial}{\partial t}\Psi(\mathbf{r},t) = \left(-\frac{\hbar^2}{2m}\
 \end{equation}
 
 où $\Psi(\mathbf{r},t)$ est la fonction d'onde, $\mathbf{r}$ est la position, $t$ est le temps, $\hbar$ est la constante de Planck réduite, $m$ est la masse de la particule et $V(\mathbf{r},t)$ est le potentiel.
+§u:Explique moi le raisonnement par récurrence
+§a:Le raisonnement par récurrence est une méthode de démonstration mathématique qui permet de prouver qu'une propriété est vraie pour tous les entiers naturels à partir d'une certaine valeur de base.
+
+En utilisant LaTeX, on peut représenter le raisonnement par récurrence de la manière suivante :
+
+\begin{itemize}
+    \item \textbf{Étape 1 :} 
+    Montrons que la propriété est vraie pour la valeur de base (généralement 0 ou 1). \\
+    (Énoncé de la propriété pour la valeur de base)
+    
+    \item \textbf{Étape 2 :}
+    Supposons que la propriété est vraie pour un certain entier $n$ (appelé hypothèse de récurrence). \\
+    (Hypothèse de récurrence)
+    
+    \item \textbf{Étape 3 :}
+    Montrons que la propriété est également vraie pour l'entier $n+1$. \\
+    (Preuve de la propriété pour $n+1$ en utilisant l'hypothèse de récurrence)
+    
+    \item \textbf{Conclusion :}
+    Par le principe de récurrence, la propriété est vraie pour tous les entiers naturels à partir de la valeur de base.
+\end{itemize}
+
+En utilisant le langage courant sans mentionner LaTeX, le raisonnement par récurrence peut être expliqué comme suit :
+
+1. Montrer que la propriété est vraie pour la valeur de base.
+2. Supposer que la propriété est vraie pour un certain entier n (hypothèse de récurrence).
+3. Montrer que la propriété est également vraie pour l'entier n+1 en utilisant l'hypothèse de récurrence.
+4. Conclure que la propriété est vraie pour tous les entiers naturels à partir de la valeur de base, selon le principe de récurrence.

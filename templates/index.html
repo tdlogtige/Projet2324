@@ -1,88 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <title>Copain de révision</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="stylesheet" href="{ url_for('static', filename='style.css') }">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-        }
-        .header {
-            background-color: #af2a99;
-            color: #fff;
-            padding: 10px;
-            text-align: right;
-        }
-        .header-title {
-            font-size: 24px;
-        }
-        .main-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .greeting {
-            text-align: right;
-            font-size: 18px;
-        }
-        .level-dropdown {
-            text-align: right;
-            margin-bottom: 20px;
-        }
-        .level-dropdown select {
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .subjects {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-        .subject-button {
-            background-color: #ccb800;
-            color: #fff;
-            padding: 20px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: calc(33.33% - 20px);
-            text-align: center;
-        }
-        .subject-button:hover {
-            background-color: #717900;
-        }
-        
-        #professor-mode-btn {
-            background-color: #ed0e0e; 
-            padding: 10px 15px; /* Moins de padding pour réduire la taille */
-            font-size: 14px; /* Taille de texte plus petite */
-            position: absolute; /* Position absolue */
-            bottom: 10px; /* 10px du bas du conteneur */
-            right: 10px; /* 10px du côté droit du conteneur */
-        }
-        
-    </style>
-</head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_index.css') }}">
 
+</head>
 <body>
     <div class="main-container">
         <div class="header">
             <h1 class="header-title">Aide scolaire</h1>
-            <div class="greeting">Et si tu avais 20/20 sur ton prochain devoir? </div>
         </div>
-        <div class="level-dropdown">
-            <label for="level">Niveau : </label>
+        <div class="greeting">Et si tu avais 20/20 sur ton prochain devoir?</div>
+
+        <div class="choice-dropdown">
+            <label for="level">Niveau :</label>
             <select id="level">
                 <option value="CP">CP</option>
                 <option value="CE1">CE1</option>
@@ -98,40 +31,138 @@
                 <option value="Terminale">Terminale</option>
             </select>
         </div>
+
         <div class="subjects">
-            <a href="page_base.html" class="subject-button">Mathématiques</a>
-            <a href="page_base.html" class="subject-button">Physique</a>
-            <a href="page_base.html" class="subject-button">Chimie</a>
-            <a href="page_base.html" class="subject-button">Français</a>
-            <a href="page_base.html" class="subject-button">Anglais</a>
-            <a href="page_base.html" class="subject-button">Histoire</a>
-            <a href="page_base.html" class="subject-button">Géographie</a>
-            <a href="page_base.html" class="subject-button">SVT</a>
+            <button class="subject-button">Mathématiques</button>
+            <button class="subject-button">Physique</button>
+            <button class="subject-button">Chimie</button>
+            <button class="subject-button">Anglais</button>
+            <button class="subject-button">Français</button>
+            <button class="subject-button">Histoire</button>
+            <button class="subject-button">Géographie</button>
+            <button class="subject-button">SVT</button>
         </div>
 
-        <a href="create_question.html" id="professor-mode-btn" class="subject-button">Mode Professeur</a>
+        <div class="choice-dropdown">
+            <label for="chapter">Chapitre :</label>
+            <select id="chapter">
+                <option value="">Sélectionnez un chapitre</option>
+                <!-- Les options de chapitre seront chargées dynamiquement -->
+            </select>
+        </div>
+
+        <!-- Bouton Commencer l'entraînement -->
+        <button id="start-training-btn" class="action-button">Commencer l'entraînement !</button>
+
+        <!-- Bouton Mode Professeur (décalé en bas à droite) -->
+        <a href="create_question.html" id="professor-mode-btn" class="action-button">Mode Professeur</a>
 
     </div>
+
+    <div id="no-content-message" style="display: none; text-align: center; color: red; margin-top: 20px;">
+        Nous n'avons pas encore de contenu pour ta classe et cette matière, essaie une autre matière !
+    </div>
+    
+    
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const levelSelect = document.getElementById('level');
+            const chapterSelect = document.getElementById('chapter');
             const subjectButtons = document.querySelectorAll('.subject-button');
-            const professorModeButton = document.getElementById('professor-mode-btn'); // Obtenir le bouton Mode Professeur
-    
+            const noContentMessage = document.getElementById('no-content-message'); // Ajouter cet élément dans le HTML
+            let selectedSubject = null;
+
+            // Fonction pour charger les chapitres
+            function updateChapters() {
+                const level = levelSelect.value;
+                const subject = selectedSubject;
+
+                if (level && subject) {
+                    fetch(`/get_chapters?class=${level}&subject=${subject}`)
+                        .then(response => response.json())
+                        .then(data => {
+
+                            if (data.length === 0) {
+                                // Afficher un message si aucun chapitre n'est disponible
+                                noContentMessage.style.display = 'block';
+                                chapterSelect.style.display = 'none';
+                            } else {
+                                // Remplir le menu déroulant des chapitres
+                                chapterSelect.innerHTML = '<option value="">Sélectionnez un chapitre</option>';
+                                data.forEach(chapter => {
+                                    const option = document.createElement('option');
+                                    option.value = chapter;
+                                    option.textContent = chapter;
+                                    chapterSelect.appendChild(option);
+                                });
+                                noContentMessage.style.display = 'none';
+                                chapterSelect.style.display = 'block';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erreur lors du chargement des chapitres:', error);
+                        });
+                }
+            }
+
+            // Gestionnaire d'événements pour les boutons de matière
             subjectButtons.forEach(button => {
-                button.addEventListener('click', function(event) {
-                    // Vérifier si le bouton cliqué n'est pas le bouton Mode Professeur
-                    if (this !== professorModeButton) {
-                        event.preventDefault();
-                        const level = levelSelect.value;
-                        const subject = this.textContent.trim();
-                        window.location.href = `/page_base.html?level=${level}&subject=${subject}`;
-                    }
+                button.addEventListener('click', function() {
+                    selectedSubject = this.textContent.trim();
+                    updateChapters(); // Appeler updateChapters quand une matière est sélectionnée
+                });
+            });
+
+            levelSelect.addEventListener('change', updateChapters);
+        });
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const subjectButtons = document.querySelectorAll('.subject-button');
+
+            subjectButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Retirer la classe 'selected' de tous les boutons
+                    subjectButtons.forEach(btn => btn.classList.remove('subject-button-selected'));
+
+                    // Ajouter la classe 'selected' au bouton cliqué
+                    this.classList.add('subject-button-selected');
                 });
             });
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const levelSelect = document.getElementById('level');
+            const chapterSelect = document.getElementById('chapter');
+            const subjectButtons = document.querySelectorAll('.subject-button');
+            let selectedSubject = null;
+
+            // Gestionnaire d'événements pour les boutons de matière
+            subjectButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    selectedSubject = this.textContent.trim();
+                    this.classList.add('subject-button-selected');
+                });
+            });
+
+    document.getElementById('start-training-btn').addEventListener('click', function() {
+        const level = levelSelect.value;
+        const chapter = chapterSelect.value;
+
+        if (level && selectedSubject && chapter) {
+            window.location.href = `page_base.html?level=${level}&subject=${selectedSubject}&chapter=${chapter}`;
+        } else {
+            alert("Veuillez sélectionner une classe, une matière et un chapitre.");
+        }
+    });
+});
+
+
     </script>
+    
+    
 
 </body>
 

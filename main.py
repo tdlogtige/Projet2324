@@ -135,13 +135,14 @@ def load_chat():
     return {"answer": contexte}
 
 
+
 @app.route("/qcm", methods=["GET"])
 def pose_qcm():
     level = request.args.get('level')
     subject = request.args.get('subject')
+    chapter = request.args.get('chapter')  
     nb_questions = request.args.get('nb_questions', type=int, default=2)  # Valeur par défaut est 2
-    qcm_response = get_question_from_db(level, subject, nb_questions)
-    print(json.dumps(qcm_response))
+    qcm_response = get_question_from_db(level, subject, chapter, nb_questions)
     return {"answer": qcm_response}
 
 

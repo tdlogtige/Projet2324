@@ -48,9 +48,10 @@ def ask_qcm_prime(subject, level, chapter, prompt):
     return response_json
 
 
-def get_question_from_db(level, subject, nb_questions):
+
+def get_question_from_db(level, subject, chapter, nb_questions):
     # Récupérer deux questions correspondant au niveau et au sujet
-    questions_cursor = collection.find({"level": level, "subject": subject}).limit(nb_questions)
+    questions_cursor = collection.find({"level": level, "subject": subject, "chapter": chapter}).limit(nb_questions)
 
     # Convertir le curseur en liste
     questions = list(questions_cursor)
