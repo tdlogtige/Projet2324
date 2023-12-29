@@ -334,6 +334,31 @@ function displayQCM(data) {     //data doit être un dictionnaire
         update_student_feedback(id, "thumb-down")
     };
 
+
+    difficultySelect.addEventListener("change", function () {
+    const selectedDifficulty = difficultySelect.value;
+    if (selectedDifficulty) {
+        updateDifficultyLevel(id, selectedDifficulty);
+    }
+});
+
+
+    function updateStudentFeedback(id, feedback) {
+    fetch(`/update-student-feedback?id=${id}&feedback=${feedback}`)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+}
+
+    function updateDifficultyLevel(id, difficulty) {
+    fetch(`/update-difficulty-level?id=${id}&difficulty=${difficulty}`)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+}
+
+
+
     newQCMButton.addEventListener("click", handleNewQCMClick);
 
 }
