@@ -217,49 +217,121 @@ document.addEventListener('DOMContentLoaded', function() {
         qcmButton.addEventListener('click', handleQCMTestClick);
     }
 }
-    function updateChapters(newChapter = null) {
-                // Add the option to add a new chapter
+    <!-- ... previous HTML code ... -->
+
+<div class="form-group">
+    <label for="chapter-select">Chapitre :</label>
+    <select id="chapter-select" name="chapter">
+        <!-- Options will be dynamically loaded with JavaScript -->
+    </select>
+</div>
+
+<!-- Field and button for adding a new chapter -->
+<div id="add-chapter-container" style="display: none;">
+    <input type="text" id="new-chapter-input" placeholder="Nom du nouveau chapitre">
+    <button id="add-chapter-button" type="button">Ajouter le chapitre</button>
+</div>
+
+<!-- ... rest of the HTML ... -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var classSelect = document.getElementById('class-select');
+        var subjectSelect = document.getElementById('subject-select');
+        var chapterSelect = document.getElementById('chapter-select');
+
+        function updateChapters(newChapter = null) {
+            var selectedClass = classSelect.value;
+            var selectedSubject = subjectSelect.value;
+
+            // Fetch chapters from the server
+            fetch('/get_chapters?class=' + selectedClass + '&subject=' + selectedSubject)
+                .then(response => response.json())
+                .then(data => {
+                    chapterSelect.innerHTML = ''; // Clear existing options
+
+                    // Add existing chapters
+                    var seenChapters = {}; // To avoid duplicates
+                    data.forEach(function (chapter) {
+                        if (!seenChapters[chapter]) {
+                            seenChapters[chapter] = true;
+
+                            var option = document.createElement('option');
+                            option.value = chapter;
+                            option.textContent = chapter;
+                            chapterSelect.appendChild(option);
+
+                            if (newChapter && chapter === newChapter) {
+                                option.selected = true; // Select the new chapter
+                            }
+                        }
+                    });
+
+                    // Add the option to add a new chapter
                     var addOption = document.createElement('option');
                     addOption.value = 'add_new';
                     addOption.textContent = 'Ajouter un chapitre';
                     chapterSelect.appendChild(addOption);
-    }
-    function addNewChapter() {
-    
-                fetch('/add_chapter', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ class: selectedClass, subject: selectedSubject, new_chapter: newChapter })
+
+                    // Select the new chapter or display the text field if "Ajouter un chapitre" is selected
+                    if (newChapter) {
+                        chapterSelect.value = newChapter;
+                    } else if (chapterSelect.value === 'add_new') {
+                        document.getElementById('add-chapter-container').style.display = 'block';
+                    } else {
+                        document.getElementById('add-chapter-container').style.display = 'none';
+                    }
                 })
+                .catch(error => {
+                    console.error('Error fetching chapters:', error);
+                });
+        }
+
+        function addNewChapter() {
+            var selectedClass = document.getElementById('class-select').value;
+            var selectedSubject = document.getElementById('subject-select').value;
+            var newChapter = document.getElementById('new-chapter-input').value;
+
+            fetch('/add_chapter', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ class: selectedClass, subject: selectedSubject, new_chapter: newChapter })
+            })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Reload the chapters
+                        // Reload chapters
                         updateChapters(newChapter);
 
-                        // Hide the text input and button
+                        // Hide the text field and button
                         document.getElementById('add-chapter-container').style.display = 'none';
 
-                        // Optionally, reset the value of the text input
+                        // Optionally, reset the text field value
                         document.getElementById('new-chapter-input').value = '';
                     }
                 });
-        });
+        }
 
+        classSelect.addEventListener('change', updateChapters);
+        subjectSelect.addEventListener('change', updateChapters);
 
         chapterSelect.addEventListener('change', function () {
             if (this.value === 'add_new') {
-                // Show the text input and button
                 document.getElementById('add-chapter-container').style.display = 'block';
-            } else {
-                // Hide the text input and button
+            }
+            else {
                 document.getElementById('add-chapter-container').style.display = 'none';
             }
         });
 
         document.getElementById('add-chapter-button').addEventListener('click', addNewChapter);
+        // Initially load chapters
+        updateChapters();
+    });
+
+
 
 const handleQCMTestClick = async () => {
     while (messagesContainer.firstChild) {
