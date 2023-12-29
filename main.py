@@ -45,7 +45,6 @@ def create_question():
     return render_template('create_question.html')
 
 
-<<<<<<< HEAD
 @app.route('/get_chapters', methods=['GET'])
 def get_chapters():
     selected_class = request.args.get('class')
@@ -79,8 +78,6 @@ def add_chapter():
     collection.update_one(query, update)
 
     return jsonify({"success": True})
-=======
->>>>>>> 6ac0ff73caf39a69a6e26b3d79e73ef41c0db0bc
 
 
 @app.route('/add_question', methods=['POST'])
@@ -164,40 +161,6 @@ def handle_update_difficulty_level():
     return jsonify({"message": "Difficulty level updated successfully"}), 200
 
 
-
-@app.route('/get_chapters', methods=['GET'])
-def get_chapters():
-    selected_class = request.args.get('class')
-    selected_subject = request.args.get('subject')
-
-    # Collection chapitres de Mongo
-    collection = database.chapitres
-
-    # Récupérer les chapitres pour la classe et la matière sélectionnées
-    document = collection.find_one({"classe": selected_class})
-    if document and selected_subject in document['matières']:
-        chapters = document['matières'][selected_subject]
-    else:
-        chapters = []
-
-    return jsonify(chapters)
-
-@app.route('/add_chapter', methods=['POST'])
-def add_chapter():
-    data = request.json
-    selected_class = data['class']
-    selected_subject = data['subject']
-    new_chapter = data['new_chapter']
-
-    # Collection chapitres de Mongo
-    collection = database.chapitres
-
-    # Ajouter le nouveau chapitre à la base de données
-    query = {"classe": selected_class}
-    update = {"$addToSet": {f"matières.{selected_subject}": new_chapter}}
-    collection.update_one(query, update)
-
-    return jsonify({"success": True})
 
 
 
