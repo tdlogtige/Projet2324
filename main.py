@@ -74,10 +74,14 @@ def add_chapter():
 
     # Ajouter le nouveau chapitre à la base de données
     query = {"classe": selected_class}
-    update = {"$addToSet": {f"matières.{selected_subject}": new_chapter}}
-    collection.update_one(query, update)
+
+    update = {"$push": {f"matières.{selected_subject}": new_chapter}}
+
+    # Use upsert=True to create the document if it doesn't exist
+    collection.update_one(query, update, upsert=True)
 
     return jsonify({"success": True})
+
 
 
 @app.route('/add_question', methods=['POST'])
