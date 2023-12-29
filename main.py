@@ -53,7 +53,7 @@ def get_chapters():
     # Collection chapitres de Mongo
     collection = database.chapitres
 
-    # Récupérer les chapitres pour la classe et la matière sélectionnées
+    # Fetch all chapters from MongoDB for the selected class and subject
     document = collection.find_one({"classe": selected_class})
     if document and selected_subject in document['matières']:
         chapters = document['matières'][selected_subject]
