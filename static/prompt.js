@@ -216,7 +216,50 @@ document.addEventListener('DOMContentLoaded', function() {
     if (qcmButton) {
         qcmButton.addEventListener('click', handleQCMTestClick);
     }
-});
+}
+    function updateChapters(newChapter = null) {
+                // Add the option to add a new chapter
+                    var addOption = document.createElement('option');
+                    addOption.value = 'add_new';
+                    addOption.textContent = 'Ajouter un chapitre';
+                    chapterSelect.appendChild(addOption);
+    }
+    function addNewChapter() {
+    
+                fetch('/add_chapter', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ class: selectedClass, subject: selectedSubject, new_chapter: newChapter })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Reload the chapters
+                        updateChapters(newChapter);
+
+                        // Hide the text input and button
+                        document.getElementById('add-chapter-container').style.display = 'none';
+
+                        // Optionally, reset the value of the text input
+                        document.getElementById('new-chapter-input').value = '';
+                    }
+                });
+        });
+
+
+        chapterSelect.addEventListener('change', function () {
+            if (this.value === 'add_new') {
+                // Show the text input and button
+                document.getElementById('add-chapter-container').style.display = 'block';
+            } else {
+                // Hide the text input and button
+                document.getElementById('add-chapter-container').style.display = 'none';
+            }
+        });
+
+        document.getElementById('add-chapter-button').addEventListener('click', addNewChapter);
 
 const handleQCMTestClick = async () => {
     while (messagesContainer.firstChild) {
@@ -242,8 +285,7 @@ const handleQCMTestClick = async () => {
 }
 
 
-// Suppression de l'événement listener redondant sur 'qcm-test-button'
-// car il est déjà défini dans le premier morceau de code.
+
 
 
 
