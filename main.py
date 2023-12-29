@@ -120,4 +120,18 @@ def pose_qcm():
     return {"answer": qcm_response}
 
 
+@app.route('/update-student-feedback', methods=['GET'])
+def handle_update_student_feedback():
+    question_id = request.args.get('id')
+    feedback = request.args.get('feedback')
+    update_student_feedback(question_id, feedback)
+    return jsonify({"message": "Feedback updated successfully"}), 200  #200 pour dire que la requete a été successful
+
+@app.route('/update-difficulty', methods=['GET'])
+def handle_update_difficulty_level():
+    question_id = request.args.get('id')
+    difficulty = request.args.get('difficulty')
+    update_difficulty(question_id, difficulty)
+    return jsonify({"message": "Difficulty level updated successfully"}), 200
+
 
