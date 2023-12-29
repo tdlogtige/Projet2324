@@ -28,6 +28,7 @@ body {
 .greeting {
     font-size: 18px;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .choice-dropdown {
@@ -67,7 +68,7 @@ body {
 }
 
 .subject-button-selected {
-    background-color: #4CAF50; 
+    background-color: #800080; 
 }
 
 .action-button {
