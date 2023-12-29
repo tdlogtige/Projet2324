@@ -74,7 +74,7 @@ body {
 }
 
 .action-button {
-    background-color: #4CAF50;
+    background-color: #800080;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -97,7 +97,7 @@ body {
 
 
 .subject-button-selected {
-    background-color: #4CAF50; /* Choisissez la couleur que vous préférez */
+    background-color: #800080; 
 }
 
 
