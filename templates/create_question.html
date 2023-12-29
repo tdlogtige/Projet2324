@@ -40,11 +40,118 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="chapter-select">Chapitre :</label>
+                <select id="chapter-select" name="chapter">
+                    <!-- Les options seront chargées dynamiquement avec JavaScript -->
+                </select>
+            </div>
+
+            <!-- Champ de texte et bouton pour ajouter un nouveau chapitre -->
+            <div id="add-chapter-container" style="display: none;">
+                <input type="text" id="new-chapter-input" placeholder="Nom du nouveau chapitre">
+                <button id="add-chapter-button" type="button">Ajouter le chapitre</button>
+            </div>
+            <div class="form-group">
                 <label for="prompt-input">Sujet de la question :</label>
                 <input type="text" id="prompt-input" name="prompt" placeholder="Entrez le sujet ici">
             </div>
             <button type="submit" class="submit-button">Générer Question</button>
         </form>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var classSelect = document.getElementById('class-select');
+            var subjectSelect = document.getElementById('subject-select');
+            var chapterSelect = document.getElementById('chapter-select');
+
+            function updateChapters(newChapter = null) {
+                var selectedClass = classSelect.value;
+                var selectedSubject = subjectSelect.value;
+
+                // Effectuer une requête AJAX à votre serveur pour obtenir les chapitres
+                fetch('/get_chapters?class=' + selectedClass + '&subject=' + selectedSubject)
+                    .then(response => response.json())
+                    .then(data => {
+                        chapterSelect.innerHTML = ''; // Vider les options existantes
+
+                        // Ajouter les chapitres existants
+                        data.forEach(function(chapter) {
+                            var option = document.createElement('option');
+                            option.value = chapter;
+                            option.textContent = chapter;
+                            chapterSelect.appendChild(option);
+                            if (newChapter && chapter === newChapter) {
+                                option.selected = true; // Sélectionner le nouveau chapitre
+                            }
+                        });
+
+                        // Ajouter l'option pour ajouter un nouveau chapitre
+                        var addOption = document.createElement('option');
+                        addOption.value = 'add_new';
+                        addOption.textContent = 'Ajouter un chapitre';
+                        chapterSelect.appendChild(addOption);
+
+                        // Sélectionner le nouveau chapitre ou afficher le champ si "Ajouter un chapitre" est sélectionné
+                        if (newChapter) {
+                            chapterSelect.value = newChapter;
+                        } else if (chapterSelect.value === 'add_new') {
+                            document.getElementById('add-chapter-container').style.display = 'block';
+                        } else {
+                            document.getElementById('add-chapter-container').style.display = 'none';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de la récupération des chapitres:', error);
+                    });
+            }
+
+
+
+            function addNewChapter() {
+                var selectedClass = document.getElementById('class-select').value;
+                var selectedSubject = document.getElementById('subject-select').value;
+                var newChapter = document.getElementById('new-chapter-input').value;
+
+                fetch('/add_chapter', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({class: selectedClass, subject: selectedSubject, new_chapter: newChapter})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Recharger les chapitres
+                        updateChapters(newChapter);
+
+                        // Masquer le champ de texte et le bouton
+                        document.getElementById('add-chapter-container').style.display = 'none';
+
+                        // Optionnellement, réinitialiser la valeur du champ de texte
+                        document.getElementById('new-chapter-input').value = '';
+                    }
+                });
+            }
+
+
+            classSelect.addEventListener('change', updateChapters);
+            subjectSelect.addEventListener('change', updateChapters);
+
+            chapterSelect.addEventListener('change', function() {
+                if (this.value === 'add_new') {
+                    document.getElementById('add-chapter-container').style.display = 'block';
+                } else {
+                    document.getElementById('add-chapter-container').style.display = 'none';
+                }
+            });
+
+            document.getElementById('add-chapter-button').addEventListener('click', addNewChapter);
+
+            // Charger initialement les chapitres
+            updateChapters();
+        });
+
+    </script>
 </body>
 </html>
