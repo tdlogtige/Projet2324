@@ -12,6 +12,11 @@ const endQCMButton = document.getElementById("end-qcm-button");
 const returnChatButton = document.getElementById("return-chat-button");
 const qcmForm = document.getElementById("qcm-form");
 const newQCMTestButton = document.getElementById("new-qcm-test-button");
+const thumbUpButton = document.getElementById('thumb-up');
+const thumbDownButton = document.getElementById('thumb-down');
+const difficultySelect = document.getElementById('difficulty-level');
+const newQCMButton = document.getElementById('new-qcm-button');
+const finQCMButton = document.getElementById('fin-qcm-button');
 
 var body = document.getElementsByTagName('body')[0];
 var darkmode = false;
@@ -226,7 +231,6 @@ const handleQCMTestClick = async () => {
     const subject = urlParams.get('subject');
     const chapter = urlParams.get('chapter');
 
-
     const response = await fetch(`/qcm?level=${level}&subject=${subject}&chapter=${chapter}`, { method: "GET" });
     const data = await response.json();
 
@@ -272,7 +276,7 @@ const handleReturnChatButton = async () => {
 
 function displayQCM(data) {     //data doit être un dictionnaire
 
-    const { question, choices, correct } = data;
+    const { question, choices, correct, id } = data;
     const newQCMButton = document.getElementById("new-qcm-button");
     newQCMButton.classList.add("hidden");
 
@@ -322,6 +326,39 @@ function displayQCM(data) {     //data doit être un dictionnaire
             qcmSubmit.classList.remove("hidden");
         }
     };
+
+    thumbUpButton.onclick = function () {
+        update_student_feedback(id, "thumb-up")
+    };
+    
+    thumbDownButton.onclick = function () {
+        update_student_feedback(id, "thumb-down")
+    };
+
+
+    difficultySelect.addEventListener("change", function () {
+    const selectedDifficulty = difficultySelect.value;
+    if (selectedDifficulty) {
+        updateDifficultyLevel(id, selectedDifficulty);
+    }
+});
+
+
+    function updateStudentFeedback(id, feedback) {
+    fetch(`/update-student-feedback?id=${id}&feedback=${feedback}`)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+}
+
+    function updateDifficultyLevel(id, difficulty) {
+    fetch(`/update-difficulty-level?id=${id}&difficulty=${difficulty}`)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+}
+
+
 
     newQCMButton.addEventListener("click", handleNewQCMClick);
 

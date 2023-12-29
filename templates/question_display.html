@@ -60,10 +60,12 @@
                 choices.push(document.getElementById('choice_' + index + '_' + i).value);
             }
 
-            // Récupérer les valeurs de selected_class et selected_subject
+            // Récupérer les valeurs de selected_class et selected_subject et chapter de la base de données
             var selectedClass = document.getElementById('class-info').dataset.selectedClass;
             var selectedSubject = document.getElementById('subject-info').dataset.selectedSubject;
-            var selectedChapter = document.getElementById('chapter-info').dataset.selectedChapter; 
+
+            var selectedChapter = document.getElementById('chapter-info').dataset.selectedChapter;
+
 
             var questionData = {
                 question: questionText,

@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 from src.utils.story_manager import *
-from src.utils.QCM import get_question_from_db, add_answer, ask_qcm_prime, database
+from src.utils.QCM import *
 
 
 app = Flask(__name__)
@@ -45,6 +45,7 @@ def create_question():
     return render_template('create_question.html')
 
 
+<<<<<<< HEAD
 @app.route('/get_chapters', methods=['GET'])
 def get_chapters():
     selected_class = request.args.get('class')
@@ -78,6 +79,8 @@ def add_chapter():
     collection.update_one(query, update)
 
     return jsonify({"success": True})
+=======
+>>>>>>> 6ac0ff73caf39a69a6e26b3d79e73ef41c0db0bc
 
 
 @app.route('/add_question', methods=['POST'])
@@ -144,6 +147,57 @@ def pose_qcm():
     nb_questions = request.args.get('nb_questions', type=int, default=2)  # Valeur par défaut est 2
     qcm_response = get_question_from_db(level, subject, chapter, nb_questions)
     return {"answer": qcm_response}
+
+
+@app.route('/update-student-feedback', methods=['GET'])
+def handle_update_student_feedback():
+    question_id = request.args.get('id')
+    feedback = request.args.get('feedback')
+    update_student_feedback(question_id, feedback)
+    return jsonify({"message": "Feedback updated successfully"}), 200  #200 pour dire que la requete a été successful
+
+@app.route('/update-difficulty', methods=['GET'])
+def handle_update_difficulty_level():
+    question_id = request.args.get('id')
+    difficulty = request.args.get('difficulty')
+    update_difficulty(question_id, difficulty)
+    return jsonify({"message": "Difficulty level updated successfully"}), 200
+
+
+
+@app.route('/get_chapters', methods=['GET'])
+def get_chapters():
+    selected_class = request.args.get('class')
+    selected_subject = request.args.get('subject')
+
+    # Collection chapitres de Mongo
+    collection = database.chapitres
+
+    # Récupérer les chapitres pour la classe et la matière sélectionnées
+    document = collection.find_one({"classe": selected_class})
+    if document and selected_subject in document['matières']:
+        chapters = document['matières'][selected_subject]
+    else:
+        chapters = []
+
+    return jsonify(chapters)
+
+@app.route('/add_chapter', methods=['POST'])
+def add_chapter():
+    data = request.json
+    selected_class = data['class']
+    selected_subject = data['subject']
+    new_chapter = data['new_chapter']
+
+    # Collection chapitres de Mongo
+    collection = database.chapitres
+
+    # Ajouter le nouveau chapitre à la base de données
+    query = {"classe": selected_class}
+    update = {"$addToSet": {f"matières.{selected_subject}": new_chapter}}
+    collection.update_one(query, update)
+
+    return jsonify({"success": True})
 
 
 
