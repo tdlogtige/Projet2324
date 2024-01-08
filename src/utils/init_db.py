@@ -14,7 +14,7 @@ def init_db():
     try:
         database_name = 'db'
         client = MongoClient(
-            host="monatest.fr", #151.80.56.147",  # Adresse IP du serveur MongoDB
+            host="monadev.fr", #151.80.56.147",  # Adresse IP du serveur MongoDB
             port=27017,
             username="root", #os.getenv("MONGO_USERNAME"),
             password="your_password_here", #os.getenv("MONGO_PASSWORD"),
