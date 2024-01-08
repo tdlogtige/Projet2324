@@ -270,6 +270,9 @@ body {
     transition: background-color 0.3s;
 }
 
+
+
+
 #qcm-submit:hover,
 #new-qcm-button:hover {
     background-color: #0056b3;
@@ -336,3 +339,52 @@ body {
     display: none;
 }
 
+#opinion {
+    display: flex; /* Utilise Flexbox */
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+}
+
+
+.feedback-button {
+    background-color: #f0f0f0; /* Couleur de fond */
+    border: none; /* Pas de bordure */
+    border-radius: 5px; /* Coins arrondis */
+    padding: 10px 15px; /* Padding intérieur */
+    margin: 5px 10px; /* Ajuste l'espacement autour des boutons */
+    cursor: pointer; /* Change le curseur en main */
+    font-size: 1.5em; /* Taille des emojis */
+
+    transition: background-color 0.3s; /* Transition douce pour le survol */
+}
+
+.feedback-button:hover {
+    background-color: #e0e0e0; /* Changement de couleur au survol */
+}
+
+#thumb-up {
+    color: green; /* Couleur du pouce en haut */
+}
+
+#thumb-down {
+    color: red; /* Couleur du pouce en bas */
+}
+
+
+#difficulty-level {
+    background-color: white; /* Couleur de fond */
+    border: 1px solid #ddd; /* Bordure fine */
+    border-radius: 5px; /* Coins arrondis */
+    padding: 10px; /* Padding intérieur */
+    margin-top: 10px; /* Espace au-dessus du menu */
+    width: 100%; /* Largeur complète */
+    box-sizing: border-box; /* Pour inclure padding dans la largeur */
+    cursor: pointer; /* Change le curseur en main */
+    font-size: 1em; /* Taille du texte */
+
+}
+
+#difficulty-level:focus {
+    border-color: #aaa; /* Couleur de bordure lors de la sélection */
+    outline: none; /* Supprime le contour par défaut */
+}
