@@ -45,3 +45,7 @@ En utilisant le langage courant sans mentionner LaTeX, le raisonnement par récu
 2. Supposer que la propriété est vraie pour un certain entier n (hypothèse de récurrence).
 3. Montrer que la propriété est également vraie pour l'entier n+1 en utilisant l'hypothèse de récurrence.
 4. Conclure que la propriété est vraie pour tous les entiers naturels à partir de la valeur de base, selon le principe de récurrence.
+§u:Pose moi une question sur un détail du cours
+§a:Quelle est la différence entre une méthode virtuelle pure et une méthode virtuelle dans la programmation en C++ ?
+§u:Pose moi une question sur un détail du cours
+§a:Quelles stratégies sont recommandées pour améliorer notre expérience sur les réseaux sociaux et devenir antifragiles dans l'ère du numérique ?
