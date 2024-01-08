@@ -44,6 +44,8 @@ def ask_qcm_prime(subject, level, chapter, prompt):
         response_json[k]['correct'] -= 1
         response_json[k]['level'] = level
         response_json[k]['subject'] = subject
+        response_json[k]['feedback'] = [0,0]
+        response_json[k]['difficulty'] = [0,0,0,0,0]
 
     return response_json
 

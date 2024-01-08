@@ -49,3 +49,17 @@ En utilisant le langage courant sans mentionner LaTeX, le raisonnement par récu
 §a:Quelle est la différence entre une méthode virtuelle pure et une méthode virtuelle dans la programmation en C++ ?
 §u:Pose moi une question sur un détail du cours
 §a:Quelles stratégies sont recommandées pour améliorer notre expérience sur les réseaux sociaux et devenir antifragiles dans l'ère du numérique ?
+§u:donne équation de schrodinger
+§a:L'équation de Schrödinger en notation dirac dans l'espace des positions est donnée par :
+
+\[
+i\hbar \frac{{\partial \Psi(\mathbf{r},t)}}{{\partial t}} = \left( -\frac{{\hbar^2}}{{2m}} \nabla^2 + V(\mathbf{r},t) \right) \Psi(\mathbf{r},t)
+\]
+
+où $\hbar$ est la constante de Planck réduite, $m$ est la masse de la particule, $\Psi(\mathbf{r},t)$ est la fonction d'onde dépendante du temps et de la position, $\nabla^2$ est l'opérateur laplacien et $V(\mathbf{r},t)$ est le potentiel.
+§u:Donne l'équation de Schrodinger (ne mets pas les $ en latex)
+§a:L'équation de Schrodinger est donnée par :
+
+i \hbar \frac{\partial}{\partial t} \psi(\mathbf{r}, t) = -\frac{\hbar^2}{2m}\nabla^2 \psi(\mathbf{r}, t) + V(\mathbf{r})\psi(\mathbf{r}, t)
+§u:donne juste l'équation de schrodinger
+§a:\(-\frac{\hbar^2}{2m} \frac{d^2 \Psi}{dx^2} + V(x)\Psi = E\Psi\)
