@@ -19,7 +19,6 @@ def template():
 def page_base():
     level = request.args.get('level')
     subject = request.args.get('subject')
-    # Ici, vous pouvez ajouter une logique pour adapter le contenu en fonction de level et subject
     return render_template('page_base.html', level=level, subject=subject)
 
 
