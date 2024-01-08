@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Copain de révision</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style_index.css') }}">        
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_index.css') }}">
+
 </head>
 <body>
     <div class="main-container">
@@ -42,7 +43,7 @@
             <button class="subject-button">SVT</button>
         </div>
 
-    <div class="choice-dropdown">
+        <div class="choice-dropdown">
             <label for="chapter">Chapitre :</label>
             <select id="chapter">
                 <option value="">Sélectionnez un chapitre</option>
@@ -61,10 +62,10 @@
     <div id="no-content-message" style="display: none; text-align: center; color: red; margin-top: 20px;">
         Nous n'avons pas encore de contenu pour ta classe et cette matière, essaie une autre matière !
     </div>
+    
+    
 
-
-   <script>
-
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const levelSelect = document.getElementById('level');
             const chapterSelect = document.getElementById('chapter');
@@ -160,6 +161,11 @@
 
 
     </script>
-
+    
+    
 
 </body>
+
+</html>
+
+

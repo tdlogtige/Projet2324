@@ -12,11 +12,6 @@ const endQCMButton = document.getElementById("end-qcm-button");
 const returnChatButton = document.getElementById("return-chat-button");
 const qcmForm = document.getElementById("qcm-form");
 const newQCMTestButton = document.getElementById("new-qcm-test-button");
-const thumbUpButton = document.getElementById('thumb-up');
-const thumbDownButton = document.getElementById('thumb-down');
-const difficultySelect = document.getElementById('difficulty-level');
-const newQCMButton = document.getElementById('new-qcm-button');
-const finQCMButton = document.getElementById('fin-qcm-button');
 
 var body = document.getElementsByTagName('body')[0];
 var darkmode = false;
@@ -216,122 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (qcmButton) {
         qcmButton.addEventListener('click', handleQCMTestClick);
     }
-}
-    <!-- ... previous HTML code ... -->
-
-<div class="form-group">
-    <label for="chapter-select">Chapitre :</label>
-    <select id="chapter-select" name="chapter">
-        <!-- Options will be dynamically loaded with JavaScript -->
-    </select>
-</div>
-
-<!-- Field and button for adding a new chapter -->
-<div id="add-chapter-container" style="display: none;">
-    <input type="text" id="new-chapter-input" placeholder="Nom du nouveau chapitre">
-    <button id="add-chapter-button" type="button">Ajouter le chapitre</button>
-</div>
-
-<!-- ... rest of the HTML ... -->
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var classSelect = document.getElementById('class-select');
-        var subjectSelect = document.getElementById('subject-select');
-        var chapterSelect = document.getElementById('chapter-select');
-
-        function updateChapters(newChapter = null) {
-            var selectedClass = classSelect.value;
-            var selectedSubject = subjectSelect.value;
-
-            // Fetch chapters from the server
-            fetch('/get_chapters?class=' + selectedClass + '&subject=' + selectedSubject)
-                .then(response => response.json())
-                .then(data => {
-                    chapterSelect.innerHTML = ''; // Clear existing options
-
-                    // Add existing chapters
-                    var seenChapters = {}; // To avoid duplicates
-                    data.forEach(function (chapter) {
-                        if (!seenChapters[chapter]) {
-                            seenChapters[chapter] = true;
-
-                            var option = document.createElement('option');
-                            option.value = chapter;
-                            option.textContent = chapter;
-                            chapterSelect.appendChild(option);
-
-                            if (newChapter && chapter === newChapter) {
-                                option.selected = true; // Select the new chapter
-                            }
-                        }
-                    });
-
-                    // Add the option to add a new chapter
-                    var addOption = document.createElement('option');
-                    addOption.value = 'add_new';
-                    addOption.textContent = 'Ajouter un chapitre';
-                    chapterSelect.appendChild(addOption);
-
-                    // Select the new chapter or display the text field if "Ajouter un chapitre" is selected
-                    if (newChapter) {
-                        chapterSelect.value = newChapter;
-                    } else if (chapterSelect.value === 'add_new') {
-                        document.getElementById('add-chapter-container').style.display = 'block';
-                    } else {
-                        document.getElementById('add-chapter-container').style.display = 'none';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching chapters:', error);
-                });
-        }
-
-        function addNewChapter() {
-            var selectedClass = document.getElementById('class-select').value;
-            var selectedSubject = document.getElementById('subject-select').value;
-            var newChapter = document.getElementById('new-chapter-input').value;
-
-            fetch('/add_chapter', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ class: selectedClass, subject: selectedSubject, new_chapter: newChapter })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Reload chapters
-                        updateChapters(newChapter);
-
-                        // Hide the text field and button
-                        document.getElementById('add-chapter-container').style.display = 'none';
-
-                        // Optionally, reset the text field value
-                        document.getElementById('new-chapter-input').value = '';
-                    }
-                });
-        }
-
-        classSelect.addEventListener('change', updateChapters);
-        subjectSelect.addEventListener('change', updateChapters);
-
-        chapterSelect.addEventListener('change', function () {
-            if (this.value === 'add_new') {
-                document.getElementById('add-chapter-container').style.display = 'block';
-            }
-            else {
-                document.getElementById('add-chapter-container').style.display = 'none';
-            }
-        });
-
-        document.getElementById('add-chapter-button').addEventListener('click', addNewChapter);
-        // Initially load chapters
-        updateChapters();
-    });
-
-
+});
 
 const handleQCMTestClick = async () => {
     while (messagesContainer.firstChild) {
@@ -346,6 +226,7 @@ const handleQCMTestClick = async () => {
     const subject = urlParams.get('subject');
     const chapter = urlParams.get('chapter');
 
+
     const response = await fetch(`/qcm?level=${level}&subject=${subject}&chapter=${chapter}`, { method: "GET" });
     const data = await response.json();
 
@@ -357,7 +238,8 @@ const handleQCMTestClick = async () => {
 }
 
 
-
+// Suppression de l'événement listener redondant sur 'qcm-test-button'
+// car il est déjà défini dans le premier morceau de code.
 
 
 
@@ -390,7 +272,7 @@ const handleReturnChatButton = async () => {
 
 function displayQCM(data) {     //data doit être un dictionnaire
 
-    const { question, choices, correct, id } = data;
+    const { question, choices, correct } = data;
     const newQCMButton = document.getElementById("new-qcm-button");
     newQCMButton.classList.add("hidden");
 
@@ -440,39 +322,6 @@ function displayQCM(data) {     //data doit être un dictionnaire
             qcmSubmit.classList.remove("hidden");
         }
     };
-
-    thumbUpButton.onclick = function () {
-        update_student_feedback(id, "thumb-up")
-    };
-    
-    thumbDownButton.onclick = function () {
-        update_student_feedback(id, "thumb-down")
-    };
-
-
-    difficultySelect.addEventListener("change", function () {
-    const selectedDifficulty = difficultySelect.value;
-    if (selectedDifficulty) {
-        updateDifficultyLevel(id, selectedDifficulty);
-    }
-});
-
-
-    function updateStudentFeedback(id, feedback) {
-    fetch(`/update-student-feedback?id=${id}&feedback=${feedback}`)
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error));
-}
-
-    function updateDifficultyLevel(id, difficulty) {
-    fetch(`/update-difficulty-level?id=${id}&difficulty=${difficulty}`)
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error));
-}
-
-
 
     newQCMButton.addEventListener("click", handleNewQCMClick);
 

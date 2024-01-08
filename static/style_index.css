@@ -4,19 +4,15 @@ body {
     margin: 0;
     padding: 0;
 }
-
 .header {
     background-color: #af2a99;
     color: #fff;
     padding: 10px;
     text-align: center;
 }
-
 .header-title {
     font-size: 24px;
 }
-
-
 .main-container {
     max-width: 800px;
     margin: 0 auto;
@@ -25,32 +21,25 @@ body {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
-
 .greeting {
     font-size: 18px;
     margin-bottom: 20px;
-    text-align: center;
 }
-
 .choice-dropdown {
     text-align: center;
     margin-bottom: 20px;
 }
-
 .choice-dropdown select {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-
 .subjects {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 20px;
 }
-
 .subject-button {
     background-color: #ccb800;
     color: #fff;
@@ -61,20 +50,13 @@ body {
     cursor: pointer;
     width: calc(33.33% - 10px);
     text-align: center;
-
 }
-
-
 .subject-button:hover {
-    background-color: #8c8600; /* Darker yellow for hover */
-}
-
-.subject-button-selected {
-    background-color: #800080; 
+    background-color: #717900;
 }
 
 .action-button {
-    background-color: #800080;
+    background-color: #4CAF50;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -97,24 +79,22 @@ body {
 
 
 .subject-button-selected {
-    background-color: #800080; 
+    background-color: #4CAF50; /* Choisissez la couleur que vous préférez */
 }
 
-
-.level-dropdown {
+.choice-dropdown {
     text-align: center;
     margin: 20px 0;
 }
 
-
-.level-dropdown label {
+.choice-dropdown label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
     color: #333;
 }
 
-.level-dropdown select {
+.choice-dropdown select {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -124,13 +104,14 @@ body {
     cursor: pointer;
 }
 
-.level-dropdown select:focus {
+.choice-dropdown select:focus {
     outline: none;
     border-color: #af2a99;
     box-shadow: 0 0 5px rgba(175, 42, 153, 0.5);
 }
 
-.level-dropdown option {
+/* Style pour les options dans les menus déroulants */
+.choice-dropdown option {
     padding: 10px;
     background: white;
     border-bottom: 1px solid #eee;

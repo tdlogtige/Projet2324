@@ -17,26 +17,6 @@ def add_answer(qcm):
     return jsonify({"message": "Document ajouté avec succès"}), 201
 
 
-def update_student_feedback(question_id, feedback):
-    if feedback == 'thumb_up':
-        collection.update_one({"_id": ObjectId(question_id)},{"$inc": {"student_feedback.0": 1}})
-    if feedback == 'thumb_down':
-        collection.update_one({"_id": ObjectId(question_id)},{"$inc": {"student_feedback.1": -1}})
-    return jsonify({"message": "Document modifié avec succès"}), 201
-        
-
-def update_difficulty(question_id, difficulty):
-    if difficulty == "très facile":
-        collection.update_one({"_id": ObjectId(question_id)},{"$inc": {"student_feedback.0": 1}})
-    if difficulty == "facile":
-        collection.update_one({"_id": ObjectId(question_id)},{"$inc": {"student_feedback.1": 1}})
-    if difficulty == "moyen":
-        collection.update_one({"_id": ObjectId(question_id)},{"$inc": {"student_feedback.2": 1}})
-    if difficulty == "difficile":
-        collection.update_one({"_id": ObjectId(question_id)},{"$inc": {"student_feedback.3": 1}})
-    if difficulty == "très difficile":
-        collection.update_one({"_id": ObjectId(question_id)},{"$inc": {"student_feedback.4": 1}})
-
 def gpt4_completion_qcm(question, contexte, ancienne_reponse_gpt):
     return openai.ChatCompletion.create(
         model="gpt-4",
@@ -83,10 +63,8 @@ def get_question_from_db(level, subject, chapter, nb_questions):
             formatted_question = {
                 "question": question_data["question"],
                 "choices": question_data["choices"],
-                "correct": question_data["correct"],
-                "id": str(question_data["_id"])
+                "correct": question_data["correct"]
             }
-            print(question_data["_id"])
             formatted_questions.append(formatted_question)
         return formatted_questions
     else:

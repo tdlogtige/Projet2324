@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 from src.utils.story_manager import *
-from src.utils.QCM import *
+from src.utils.QCM import get_question_from_db, add_answer, ask_qcm_prime, database
 
 
 app = Flask(__name__)
@@ -52,7 +52,7 @@ def get_chapters():
     # Collection chapitres de Mongo
     collection = database.chapitres
 
-    # Fetch all chapters from MongoDB for the selected class and subject
+    # Récupérer les chapitres pour la classe et la matière sélectionnées
     document = collection.find_one({"classe": selected_class})
     if document and selected_subject in document['matières']:
         chapters = document['matières'][selected_subject]
@@ -73,14 +73,10 @@ def add_chapter():
 
     # Ajouter le nouveau chapitre à la base de données
     query = {"classe": selected_class}
-
-    update = {"$push": {f"matières.{selected_subject}": new_chapter}}
-
-    # Use upsert=True to create the document if it doesn't exist
-    collection.update_one(query, update, upsert=True)
+    update = {"$addToSet": {f"matières.{selected_subject}": new_chapter}}
+    collection.update_one(query, update)
 
     return jsonify({"success": True})
-
 
 
 @app.route('/add_question', methods=['POST'])
@@ -147,23 +143,6 @@ def pose_qcm():
     nb_questions = request.args.get('nb_questions', type=int, default=2)  # Valeur par défaut est 2
     qcm_response = get_question_from_db(level, subject, chapter, nb_questions)
     return {"answer": qcm_response}
-
-
-@app.route('/update-student-feedback', methods=['GET'])
-def handle_update_student_feedback():
-    question_id = request.args.get('id')
-    feedback = request.args.get('feedback')
-    update_student_feedback(question_id, feedback)
-    return jsonify({"message": "Feedback updated successfully"}), 200  #200 pour dire que la requete a été successful
-
-@app.route('/update-difficulty', methods=['GET'])
-def handle_update_difficulty_level():
-    question_id = request.args.get('id')
-    difficulty = request.args.get('difficulty')
-    update_difficulty(question_id, difficulty)
-    return jsonify({"message": "Difficulty level updated successfully"}), 200
-
-
 
 
 
