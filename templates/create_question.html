@@ -43,15 +43,15 @@
             <div class="form-group">
                 <label for="chapter-select">Chapitre :</label>
                 <select id="chapter-select" name="chapter">
-                    <!-- Les options seront chargées dynamiquement avec JavaScript -->
+                    <!-- Options will be dynamically loaded with JavaScript -->
                 </select>
             </div>
 
-            <!-- Champ de texte et bouton pour ajouter un nouveau chapitre -->
             <div id="add-chapter-container" style="display: none;">
                 <input type="text" id="new-chapter-input" placeholder="Nom du nouveau chapitre">
                 <button id="add-chapter-button" type="button">Ajouter le chapitre</button>
             </div>
+
             
             <div class="form-group">
                 <label for="prompt-input">Sujet de la question :</label>
@@ -60,7 +60,6 @@
             <button type="submit" class="submit-button">Générer Question</button>
         </form>
     </div>
-
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -131,7 +130,7 @@
 
                         // Masquer le champ de texte et le bouton
                         document.getElementById('add-chapter-container').style.display = 'none';
-                        
+
                         // Optionnellement, réinitialiser la valeur du champ de texte
                         document.getElementById('new-chapter-input').value = '';
                     }
@@ -156,8 +155,6 @@
             updateChapters();
         });
 
-
     </script>
-    
 </body>
 </html>
