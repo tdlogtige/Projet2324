@@ -217,22 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
         qcmButton.addEventListener('click', handleQCMTestClick);
     }
 }
-    <!-- ... previous HTML code ... -->
 
-<div class="form-group">
-    <label for="chapter-select">Chapitre :</label>
-    <select id="chapter-select" name="chapter">
-        <!-- Options will be dynamically loaded with JavaScript -->
-    </select>
-</div>
-
-<!-- Field and button for adding a new chapter -->
-<div id="add-chapter-container" style="display: none;">
-    <input type="text" id="new-chapter-input" placeholder="Nom du nouveau chapitre">
-    <button id="add-chapter-button" type="button">Ajouter le chapitre</button>
-</div>
-
-<!-- ... rest of the HTML ... -->
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
