@@ -332,4 +332,7 @@ body {
     box-shadow: 0 10px 20px rgba(50, 50, 93, 0.25), 0 3px 6px rgba(0, 0, 0, 0.16);
 }
 
+#student-feedback, #difficulty {
+    display: none;
+}
 

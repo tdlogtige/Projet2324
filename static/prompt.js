@@ -276,6 +276,9 @@ function displayQCM(data) {     //data doit être un dictionnaire
     const newQCMButton = document.getElementById("new-qcm-button");
     newQCMButton.classList.add("hidden");
 
+    document.getElementById("student-feedback").style.display = 'none';
+    document.getElementById("difficulty").style.display = 'none';
+
     qcmSubmit.classList.remove("hidden");
     qcmQuestion.innerHTML = question;
     qcmChoices.innerHTML = "";
@@ -300,6 +303,11 @@ function displayQCM(data) {     //data doit être un dictionnaire
         qcmSubmit.classList.add("hidden");
         const selected = document.querySelector("input[name='qcm-choice']:checked");
         if (selected) {
+
+            // Afficher les éléments après que l'utilisateur a cliqué sur "Valider"
+            document.getElementById("student-feedback").style.display = 'block';
+            document.getElementById("difficulty").style.display = 'block';
+
             if (parseInt(selected.value) === correct) {
                 score += 1;
                 qcmFeedback.innerHTML = "Bonne réponse !";
