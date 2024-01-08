@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 from src.utils.story_manager import *
-from src.utils.QCM import get_question_from_db, add_answer, ask_qcm_prime, database
+from src.utils.QCM import *
 
 
 app = Flask(__name__)
