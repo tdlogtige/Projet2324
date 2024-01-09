@@ -33,6 +33,29 @@
                 <!-- Les choix seront injectés ici par le JavaScript -->
             </ul>
             <button id="qcm-submit">Valider</button>
+
+            <div id="student-feedback">
+                <div id="opinion">
+                    <button id="thumb-up" class="feedback-button">👍</button>
+                    <button id="thumb-down" class="feedback-button">👎</button>
+                </div>
+                <div id="difficulty">
+                    <select id="difficulty-level">
+                        <option value="" disabled selected>Choisir la difficulté</option>
+                        <option value="très facile">Très facile</option>
+                        <option value="facile">Facile</option>
+                        <option value="moyen">Moyen</option>
+                        <option value="difficile">Difficile</option>
+                        <option value="très difficile">Très difficile</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="feedback-thank-you" style="display: none; text-align: center;">
+                <p>Merci pour votre retour ! Il sera pris en compte pour améliorer nos questions.</p>
+            </div>
+            
+            
             <div id="qcm-feedback"></div>
             <button id="new-qcm-button" class="hidden">Question Suivante</button>
             <button id="end-qcm-button" class="hidden">Résultats</button>

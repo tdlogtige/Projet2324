@@ -272,9 +272,12 @@ const handleReturnChatButton = async () => {
 
 function displayQCM(data) {     //data doit être un dictionnaire
 
-    const { question, choices, correct } = data;
+    const { question, choices, correct, id } = data;
     const newQCMButton = document.getElementById("new-qcm-button");
     newQCMButton.classList.add("hidden");
+
+    document.getElementById("student-feedback").style.display = 'none';
+    document.getElementById("difficulty").style.display = 'none';
 
     qcmSubmit.classList.remove("hidden");
     qcmQuestion.innerHTML = question;
@@ -300,6 +303,11 @@ function displayQCM(data) {     //data doit être un dictionnaire
         qcmSubmit.classList.add("hidden");
         const selected = document.querySelector("input[name='qcm-choice']:checked");
         if (selected) {
+
+            // Afficher les éléments après que l'utilisateur a cliqué sur "Valider"
+            document.getElementById("student-feedback").style.display = 'block';
+            document.getElementById("difficulty").style.display = 'block';
+
             if (parseInt(selected.value) === correct) {
                 score += 1;
                 qcmFeedback.innerHTML = "Bonne réponse !";
@@ -321,11 +329,85 @@ function displayQCM(data) {     //data doit être un dictionnaire
             newQCMButton.classList.add("hidden");  // Cache le bouton
             qcmSubmit.classList.remove("hidden");
         }
+
+        function showThankYouMessage() {
+            document.getElementById("feedback-thank-you").style.display = "block";
+        }
+        
+        document.getElementById("thumb-up").addEventListener("click", function() {
+            sendFeedback(id, 'thumb_up');
+            this.classList.add("thumb-up-selected");
+            this.disabled = true;
+            document.getElementById("thumb-down").disabled = true;
+            showThankYouMessage();
+        });
+        
+        document.getElementById("thumb-down").addEventListener("click", function() {
+            sendFeedback(id, 'thumb_down');
+            this.classList.add("thumb-down-selected");
+            this.disabled = true;
+            document.getElementById("thumb-up").disabled = true;
+            showThankYouMessage();
+        });
+        
+        document.getElementById("difficulty-level").addEventListener("change", function() {
+            sendDifficulty(id, this.value);
+            this.disabled = true;
+            showThankYouMessage();
+        });
+        
     };
 
-    newQCMButton.addEventListener("click", handleNewQCMClick);
+    newQCMButton.addEventListener("click", function() {
+        handleNewQCMClick();
+        hideThankYouMessage();
+        // Réinitialiser l'état des boutons de feedback et du menu de difficulté
+        document.getElementById("thumb-up").disabled = false;
+        document.getElementById("thumb-down").disabled = false;
+        document.getElementById("difficulty-level").disabled = false;
+        document.getElementById("thumb-up").classList.remove("thumb-up-selected");
+        document.getElementById("thumb-down").classList.remove("thumb-down-selected");
+        document.getElementById("difficulty-level").value = "";
 
+    });
+    
 }
+
+function hideThankYouMessage() {
+    document.getElementById("feedback-thank-you").style.display = "none";
+}
+
+
+function sendFeedback(questionId, feedback) {
+    fetch('/update_feedback/' + questionId, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ feedback: feedback })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message);
+    });
+}
+
+
+function sendDifficulty(questionId, difficulty) {
+
+    fetch('/update_difficulty/' + questionId, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ difficulty: difficulty })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message);
+    });
+}
+
 
 const loadChat = async () => {
     const response = await fetch("/load-chat", {

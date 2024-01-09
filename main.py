@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 from src.utils.story_manager import *
-from src.utils.QCM import get_question_from_db, add_answer, ask_qcm_prime, database
+from src.utils.QCM import *
 
 
 app = Flask(__name__)
@@ -144,5 +144,15 @@ def pose_qcm():
     qcm_response = get_question_from_db(level, subject, chapter, nb_questions)
     return {"answer": qcm_response}
 
+@app.route('/update_feedback/<question_id>', methods=['POST'])
+def update_feedback(question_id):
+    feedback = request.json.get('feedback')
+    return update_student_feedback(question_id, feedback)
+
+
+@app.route('/update_difficulty/<question_id>', methods=['POST'])
+def update_difficulty_route(question_id):
+    difficulty = request.json.get('difficulty')
+    return update_difficulty(question_id, difficulty)
 
 

@@ -3,6 +3,7 @@ import json
 from src.utils.init_db import db as database
 from flask import jsonify
 from bson import json_util
+from bson.objectid import ObjectId
 
 
 def parse_json(data):
@@ -65,10 +66,40 @@ def get_question_from_db(level, subject, chapter, nb_questions):
             formatted_question = {
                 "question": question_data["question"],
                 "choices": question_data["choices"],
-                "correct": question_data["correct"]
+                "correct": question_data["correct"],
+                "id": str(question_data["_id"])
             }
             formatted_questions.append(formatted_question)
         return formatted_questions
     else:
         return {"error": "Aucune question trouvée pour ce niveau et sujet"}
 
+
+def update_student_feedback(question_id, feedback):
+    try:
+        if feedback == 'thumb_up':
+            collection.update_one({"_id": ObjectId(question_id)}, {"$inc": {"feedback.0": 1}})
+        elif feedback == 'thumb_down':
+            collection.update_one({"_id": ObjectId(question_id)}, {"$inc": {"feedback.1": 1}})
+        return jsonify({"message": "Document modifié avec succès"}), 201
+    except PyMongoError as e:
+        print("Erreur MongoDB: ", e)
+        return jsonify({"error": "Erreur lors de la mise à jour du feedback"}), 500
+       
+
+def update_difficulty(question_id, difficulty):
+    try:
+        if difficulty == "très facile":
+            collection.update_one({"_id": ObjectId(question_id)},{"$inc": {"difficulty.0": 1}})
+        if difficulty == "facile":
+            collection.update_one({"_id": ObjectId(question_id)},{"$inc": {"difficulty.1": 1}})
+        if difficulty == "moyen":
+            collection.update_one({"_id": ObjectId(question_id)},{"$inc": {"difficulty.2": 1}})
+        if difficulty == "difficile":
+            collection.update_one({"_id": ObjectId(question_id)},{"$inc": {"difficulty.3": 1}})
+        if difficulty == "très difficile":
+            collection.update_one({"_id": ObjectId(question_id)},{"$inc": {"difficulty.4": 1}})
+        return jsonify({"message": "Document modifié avec succès"}), 201
+    except Exception as e:
+        print("Erreur lors de la mise à jour de la difficulté : ", e)
+        return None
