@@ -330,23 +330,53 @@ function displayQCM(data) {     //data doit être un dictionnaire
             qcmSubmit.classList.remove("hidden");
         }
 
-            // Gérer le clic sur les boutons de feedback
+        function showThankYouMessage() {
+            document.getElementById("feedback-thank-you").style.display = "block";
+        }
+        
         document.getElementById("thumb-up").addEventListener("click", function() {
             sendFeedback(id, 'thumb_up');
+            this.classList.add("thumb-up-selected");
+            this.disabled = true;
+            document.getElementById("thumb-down").disabled = true;
+            showThankYouMessage();
         });
+        
         document.getElementById("thumb-down").addEventListener("click", function() {
             sendFeedback(id, 'thumb_down');
+            this.classList.add("thumb-down-selected");
+            this.disabled = true;
+            document.getElementById("thumb-up").disabled = true;
+            showThankYouMessage();
         });
-
-        // Gérer le changement de difficulté
+        
         document.getElementById("difficulty-level").addEventListener("change", function() {
             sendDifficulty(id, this.value);
+            this.disabled = true;
+            showThankYouMessage();
         });
+        
     };
 
-    newQCMButton.addEventListener("click", handleNewQCMClick);
+    newQCMButton.addEventListener("click", function() {
+        handleNewQCMClick();
+        hideThankYouMessage();
+        // Réinitialiser l'état des boutons de feedback et du menu de difficulté
+        document.getElementById("thumb-up").disabled = false;
+        document.getElementById("thumb-down").disabled = false;
+        document.getElementById("difficulty-level").disabled = false;
+        document.getElementById("thumb-up").classList.remove("thumb-up-selected");
+        document.getElementById("thumb-down").classList.remove("thumb-down-selected");
+        document.getElementById("difficulty-level").value = "";
 
+    });
+    
 }
+
+function hideThankYouMessage() {
+    document.getElementById("feedback-thank-you").style.display = "none";
+}
+
 
 function sendFeedback(questionId, feedback) {
     fetch('/update_feedback/' + questionId, {

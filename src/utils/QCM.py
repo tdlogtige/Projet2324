@@ -74,11 +74,16 @@ def get_question_from_db(level, subject, chapter, nb_questions):
 
 
 def update_student_feedback(question_id, feedback):
-    if feedback == 'thumb_up':
-        collection.update_one({"_id": ObjectId(question_id)},{"$inc": {"feedback.0": 1}})
-    if feedback == 'thumb_down':
-        collection.update_one({"_id": ObjectId(question_id)},{"$inc": {"feedback.1": 1}})
-        
+    try:
+        if feedback == 'thumb_up':
+            collection.update_one({"_id": ObjectId(question_id)}, {"$inc": {"feedback.0": 1}})
+        elif feedback == 'thumb_down':
+            collection.update_one({"_id": ObjectId(question_id)}, {"$inc": {"feedback.1": 1}})
+        return jsonify({"message": "Document modifié avec succès"}), 201
+    except PyMongoError as e:
+        print("Erreur MongoDB: ", e)
+        return jsonify({"error": "Erreur lors de la mise à jour du feedback"}), 500
+       
 
 def update_difficulty(question_id, difficulty):
     try:

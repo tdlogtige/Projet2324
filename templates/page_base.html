@@ -41,7 +41,7 @@
                 </div>
                 <div id="difficulty">
                     <select id="difficulty-level">
-                        <option value="">Choisir la difficulté</option>
+                        <option value="" disabled selected>Choisir la difficulté</option>
                         <option value="très facile">Très facile</option>
                         <option value="facile">Facile</option>
                         <option value="moyen">Moyen</option>
@@ -50,6 +50,11 @@
                     </select>
                 </div>
             </div>
+
+            <div id="feedback-thank-you" style="display: none; text-align: center;">
+                <p>Merci pour votre retour ! Il sera pris en compte pour améliorer nos questions.</p>
+            </div>
+            
             
             <div id="qcm-feedback"></div>
             <button id="new-qcm-button" class="hidden">Question Suivante</button>

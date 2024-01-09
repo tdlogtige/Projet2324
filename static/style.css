@@ -362,13 +362,23 @@ body {
     background-color: #e0e0e0; /* Changement de couleur au survol */
 }
 
-#thumb-up {
-    color: green; /* Couleur du pouce en haut */
+/* Style pour le bouton pouce en haut sélectionné */
+.thumb-up-selected {
+    background-color: #4CAF50; /* Vert doux */
+    color: white; /* Texte en blanc pour une bonne lisibilité */
+    cursor: default; /* Indique qu'il n'est plus cliquable */
+    border: none; /* Enlève la bordure */
 }
 
-#thumb-down {
-    color: red; /* Couleur du pouce en bas */
+/* Style pour le bouton pouce en bas sélectionné */
+.thumb-down-selected {
+    background-color: #f44336; /* Rouge doux */
+    color: white; /* Texte en blanc pour une bonne lisibilité */
+    cursor: default; /* Indique qu'il n'est plus cliquable */
+    border: none; /* Enlève la bordure */
 }
+
+
 
 
 #difficulty-level {
@@ -388,3 +398,4 @@ body {
     border-color: #aaa; /* Couleur de bordure lors de la sélection */
     outline: none; /* Supprime le contour par défaut */
 }
+
