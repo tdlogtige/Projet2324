@@ -272,7 +272,7 @@ const handleReturnChatButton = async () => {
 
 function displayQCM(data) {     //data doit être un dictionnaire
 
-    const { question, choices, correct } = data;
+    const { question, choices, correct, id } = data;
     const newQCMButton = document.getElementById("new-qcm-button");
     newQCMButton.classList.add("hidden");
 
@@ -329,11 +329,55 @@ function displayQCM(data) {     //data doit être un dictionnaire
             newQCMButton.classList.add("hidden");  // Cache le bouton
             qcmSubmit.classList.remove("hidden");
         }
+
+            // Gérer le clic sur les boutons de feedback
+        document.getElementById("thumb-up").addEventListener("click", function() {
+            sendFeedback(id, 'thumb_up');
+        });
+        document.getElementById("thumb-down").addEventListener("click", function() {
+            sendFeedback(id, 'thumb_down');
+        });
+
+        // Gérer le changement de difficulté
+        document.getElementById("difficulty-level").addEventListener("change", function() {
+            sendDifficulty(id, this.value);
+        });
     };
 
     newQCMButton.addEventListener("click", handleNewQCMClick);
 
 }
+
+function sendFeedback(questionId, feedback) {
+    fetch('/update_feedback/' + questionId, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ feedback: feedback })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message);
+    });
+}
+
+
+function sendDifficulty(questionId, difficulty) {
+
+    fetch('/update_difficulty/' + questionId, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ difficulty: difficulty })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message);
+    });
+}
+
 
 const loadChat = async () => {
     const response = await fetch("/load-chat", {
