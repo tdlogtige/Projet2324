@@ -31,24 +31,39 @@ def gpt4_completion_qcm(question, contexte, ancienne_reponse_gpt):
 
 nb_questions_generees = 3
 
-
-def ask_qcm_prime(subject, level, chapter, prompt):
+def ask_qcm_prime(subject, level, chapter, prompt, max_attempts=10):
     contexte = f'L objectif est de faire réviser l élève sur des cours de {subject} de classe de {level}, sur le chapitre {chapter} en prenant comme sujet {prompt}'
-    ReponseString = "[" + gpt4_completion_qcm(
-        'Génère un qcm de ' + str(nb_questions_generees) + ' questions avec 1 réponse juste et 3 réponses fausses à partir du contexte fourni. Je veux que tu renvoies le qcm sous la forme suivante : {"question": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules',
-        contexte,
-        "",
-    ) + "]"
-    response_json=json.loads(ReponseString)
+    
+    for attempt in range(max_attempts):
+        try:
+            response_string = "[" + gpt4_completion_qcm(
+                'Génère un qcm de ' + str(nb_questions_generees) + ' questions avec 1 réponse juste et 3 réponses fausses à partir du contexte fourni. Je veux que tu renvoies le qcm sous la forme suivante : {"question": "Quelle est la capitale de la France ?","choices": ["Berlin", "Madrid", "Lisbonne", "Paris"],"correct": 4} Tu renvoies juste la réponse sous cette forme, tu ne renvoies rien d autre. Tu sépares les résultats par des virgules',
+                contexte,
+                ""
+            ) + "]"
+            response_json = json.loads(response_string)
 
-    for k in range(nb_questions_generees):
-        response_json[k]['correct'] -= 1
-        response_json[k]['level'] = level
-        response_json[k]['subject'] = subject
-        response_json[k]['feedback'] = [0,0]
-        response_json[k]['difficulty'] = [0,0,0,0,0]
+            # Vérifiez que chaque question a le format attendu
+            for question in response_json:
+                if not all(key in question for key in ["question", "choices", "correct"]):
+                    raise ValueError("Format invalide")
+                if not isinstance(question["choices"], list) or not isinstance(question["correct"], int):
+                    raise ValueError("Type de données invalide")
 
-    return response_json
+            # Ajout des champs supplémentaires
+            for k in range(len(response_json)):
+                response_json[k]['correct'] -= 1
+                response_json[k]['level'] = level
+                response_json[k]['subject'] = subject
+                response_json[k]['feedback'] = [0, 0]
+                response_json[k]['difficulty'] = [0, 0, 0, 0, 0]
+
+            return response_json
+
+        except (json.JSONDecodeError, ValueError) as e:
+            print(f"Erreur lors de la tentative {attempt + 1}: {e}")
+
+    raise ValueError("Le nombre maximum de tentatives a été atteint sans obtenir de format valide")
 
 
 

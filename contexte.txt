@@ -63,3 +63,7 @@ où $\hbar$ est la constante de Planck réduite, $m$ est la masse de la particul
 i \hbar \frac{\partial}{\partial t} \psi(\mathbf{r}, t) = -\frac{\hbar^2}{2m}\nabla^2 \psi(\mathbf{r}, t) + V(\mathbf{r})\psi(\mathbf{r}, t)
 §u:donne juste l'équation de schrodinger
 §a:\(-\frac{\hbar^2}{2m} \frac{d^2 \Psi}{dx^2} + V(x)\Psi = E\Psi\)
+§u:Pose moi une question sur un détail du cours
+§a:Quel est le concept clé pour devenir antifragile dans l'ère des médias sociaux ?
+§u:Pose moi une question sur un détail du cours
+§a:Quel est le concept clé mentionné dans le cours qui donne la possibilité de devenir plus fort dans l'environnement des médias sociaux ?
