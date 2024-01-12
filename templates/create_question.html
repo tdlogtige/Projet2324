@@ -58,8 +58,14 @@
                 <input type="text" id="prompt-input" name="prompt" placeholder="Entrez le sujet ici">
             </div>
             <button type="submit" class="submit-button">Générer Question</button>
+
+            <div id="loading-spinner" style="display: none;">
+                <div class="loader"></div>
+            </div>
+        
         </form>
     </div>
+
 
 
     <script>
@@ -67,6 +73,34 @@
             var classSelect = document.getElementById('class-select');
             var subjectSelect = document.getElementById('subject-select');
             var chapterSelect = document.getElementById('chapter-select');
+            var form = document.querySelector('form');
+
+            form.addEventListener('submit', function() {
+                var spinnerContainer = document.createElement('div');
+                spinnerContainer.id = 'spinner-container';
+                spinnerContainer.style.textAlign = 'center';
+                spinnerContainer.style.width = '100%';
+                spinnerContainer.style.backgroundColor = 'white';
+                spinnerContainer.style.padding = '20px 0';
+                spinnerContainer.style.position = 'fixed';  // Utilisez 'fixed' au lieu de 'absolute'
+                spinnerContainer.style.bottom = '0';        // Positionne le conteneur en bas de la page
+                spinnerContainer.style.left = '0';          // Aligné à gauche
+
+                var message = document.createElement('p');
+                message.textContent = 'Génération des questions en cours...';
+                message.style.color = '#333';            // Couleur du texte
+                message.style.fontSize = '18px';         // Taille de la police
+                message.style.fontWeight = 'bold';       // Gras
+                message.style.marginBottom = '15px';     // Marge en bas
+                message.style.padding = '5px';           // Padding pour le texte
+                spinnerContainer.appendChild(message);
+
+                var spinner = document.createElement('div');
+                spinner.className = 'loader';
+
+                spinnerContainer.appendChild(spinner);
+                document.body.appendChild(spinnerContainer);
+            });
 
             function updateChapters(newChapter = null) {
                 var selectedClass = classSelect.value;
@@ -158,6 +192,7 @@
 
 
     </script>
+        
     
 </body>
 </html>
