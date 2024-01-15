@@ -106,6 +106,3 @@ def ask_question_to_pdf(question, save=True):
     contexte = [{"role": "system", "content": preprompt}]
 
     return gpt3_completion(question, contexte)
-
-def ask_qcm():
-    return ask_qcm_prime(document)
