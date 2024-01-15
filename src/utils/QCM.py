@@ -31,7 +31,7 @@ def gpt4_completion_qcm(question, contexte, ancienne_reponse_gpt):
 
 nb_questions_generees = 3
 
-def ask_qcm_prime(subject, level, chapter, prompt, max_attempts=10):
+def ask_qcm(subject, level, chapter, prompt, max_attempts=10):
     contexte = f'L objectif est de faire réviser l élève sur des cours de {subject} de classe de {level}, sur le chapitre {chapter} en prenant comme sujet {prompt}'
     
     for attempt in range(max_attempts):
