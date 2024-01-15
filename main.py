@@ -30,7 +30,7 @@ def create_question():
         selected_chapter = request.form['chapter']
         prompt = request.form['prompt']
 
-        qcm_questions = ask_qcm_prime(selected_subject, selected_class, selected_chapter, prompt)
+        qcm_questions = ask_qcm(selected_subject, selected_class, selected_chapter, prompt)
 
         # Ajouter un indice à chaque question et à chaque choix
         for i, question in enumerate(qcm_questions):
