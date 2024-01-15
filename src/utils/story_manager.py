@@ -7,6 +7,7 @@ from nltk.tokenize import sent_tokenize
 
 from src.utils.QCM import *
 from src.utils.Question import *
+from src.utils.Flashcard import *
 
 
 load_dotenv()
