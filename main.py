@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import os
-from src.utils.story_manager import *
+from src.utils.pdf_managing import *
 from src.utils.QCM import *
 
 
